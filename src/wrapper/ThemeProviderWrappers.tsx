@@ -8,9 +8,9 @@ import StylesProvider from '@mui/styles/StylesProvider'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { create } from 'jss'
 import { ConfirmProvider } from 'material-ui-confirm'
-import { useAppSelector } from 'stores'
+import { useAppSelector } from '@/stores'
 import { ThemeProvider } from 'styled-components'
-import createTheme from 'theme'
+import createTheme from '@/theme'
 
 interface StoreProviderProps {
   children: React.ReactNode
@@ -18,7 +18,7 @@ interface StoreProviderProps {
 
 const jss = create({
   ...jssPreset(),
-  insertionPoint: document.getElementById('jss-insertion-point')!
+  insertionPoint: process.browser ? document.getElementById('jss-insertion-point')! : undefined
 })
 
 function ThemeProviders(props: StoreProviderProps) {

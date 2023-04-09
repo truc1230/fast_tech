@@ -14,8 +14,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // check unuse import
+    "noUnusedLocals": false,
+    //check unuse params
+    "noUnusedParameters": false,
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
 
