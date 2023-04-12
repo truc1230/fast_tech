@@ -10,9 +10,9 @@ export interface IDefaultLayoutProps {
 
 export default function DefaultLayout(props: IDefaultLayoutProps) {
   return (
-    <Stack justifyContent={'center'} alignItems='center'>
+    <Stack justifyContent={'center'} alignItems='center' >
       <Navbar />
-      <Box className='h-[70vh] bg-slate-300'>{props.children}</Box>
+      <Box className='min-h-[1000px] mt-20'>{props.children}children</Box>
       <Footer />
     </Stack>
   )

@@ -5,10 +5,7 @@ import ButtonNavbar from '../atom/button/ButtonNavbar'
 import SearchIcon from '@mui/icons-material/Search'
 import ButtonOutline from '../atom/button/ButtonOutline'
 
-const convertTitleToHref = (inputString: string) => {
-  return '/' + inputString.toLowerCase().replace(/\s+/g, '-')
-}
-const MENU_ITEMS = [
+export const MENU_ITEMS = [
   {
     title: 'Our Solution',
     children: {
@@ -65,7 +62,7 @@ const MENU_ITEMS = [
 function Navbar() {
   return (
     <Stack
-      className='h-20 max-w-[1200px] w-[100vw]'
+      className='h-20 max-w-[1200px] w-[100vw] p-10 fixed top-0  shadow z-50'
       direction={'row'}
       alignItems='center'
       justifyContent={'space-between'}
@@ -81,7 +78,6 @@ function Navbar() {
           </SectionButtonNavbar>
         ))}
 
-       
         <IconButton>
           <SearchIcon />
         </IconButton>
