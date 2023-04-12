@@ -62,7 +62,7 @@ export const MENU_ITEMS = [
 function Navbar() {
   return (
     <Stack
-      className='h-20 max-w-[1200px] w-[100vw] p-10 fixed top-0  shadow z-50'
+      className='h-20  w-[100vw] p-10 fixed top-0  shadow z-50 bg-white'
       direction={'row'}
       alignItems='center'
       justifyContent={'space-between'}
