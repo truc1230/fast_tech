@@ -1,8 +1,8 @@
 import { Box, Stack } from '@mui/material'
-import Navbar from '../Navbar'
 
 import * as React from 'react'
 import Footer from '../Footer'
+import Navbar from '../Navbar'
 
 export interface IDefaultLayoutProps {
   children: React.ReactNode
