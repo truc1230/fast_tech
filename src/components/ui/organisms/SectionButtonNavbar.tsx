@@ -9,8 +9,15 @@ import { MenuItem } from '@/ui/molecules'
 export interface ISectionButtonNavbarProps {
   children: React.ReactNode
   icon: React.ReactElement | undefined
-  sub: unknown | undefined
+  sub: MenuListProps
 }
+type MenuListProps = {
+  title: string
+  data: Array<{
+    title: string
+  }>
+}
+
 const useStyles = makeStyles({
   popOverRoot: {
     pointerEvents: 'none'

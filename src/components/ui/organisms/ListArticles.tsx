@@ -1,13 +1,17 @@
+import { ButtonOutline } from '@/ui/atom'
 import { Article } from '@/ui/molecules'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Stack, Typography } from '@mui/material'
 import * as React from 'react'
 
-export interface IListArticlesProps {}
+export interface IListArticlesProps {
+  title?: string
+}
 
 export default function ListArticles(props: IListArticlesProps) {
+  const { title } = props
   return (
     <Box padding={8}>
-      <Typography variant='h4'>News</Typography>
+      <Typography variant='h4'>{title || 'News'}</Typography>
       <Grid container spacing={8}>
         <Grid item md={4}>
           <Article />
@@ -19,6 +23,9 @@ export default function ListArticles(props: IListArticlesProps) {
           <Article />
         </Grid>
       </Grid>
+      <Stack alignItems={'center'}>
+        <ButtonOutline>Explore More</ButtonOutline>
+      </Stack>
     </Box>
   )
 }
