@@ -1,6 +1,6 @@
+import { Image } from '@/ui/atom'
 import { Chip, Stack, Typography } from '@mui/material'
 import * as React from 'react'
-import Image from '../atom/Image'
 
 export interface IArticleProps {}
 

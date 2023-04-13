@@ -1,6 +1,6 @@
+import { Image } from '@/ui/atom'
 import { MenuItem as MenuItemMui, IconButton, Box, Stack, Typography } from '@mui/material'
 import * as React from 'react'
-import Image from '../atom/Image'
 
 export interface IMenuItemProps {
   children: React.ReactNode

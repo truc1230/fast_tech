@@ -1,6 +1,6 @@
+import { ButtonOutline } from '@/ui/atom'
 import { FormControl, Input, TextField } from '@mui/material'
 import * as React from 'react'
-import ButtonOutline from '../atom/button/ButtonOutline'
 
 export interface IFormRegisterProps {}
 

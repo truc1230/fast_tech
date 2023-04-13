@@ -1,7 +1,5 @@
-import DefaultLayout from '@/components/ui/layout/DefaultLayout'
-import LayoutSidebar from '@/components/ui/layout/LayoutSidebar'
-import Article from '@/components/ui/molecules/Article'
-import ListArticles from '@/components/ui/organisms/ListArticles'
+import { ListArticles } from '@/ui/organisms'
+import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
 import { Box } from '@mui/material'
 import React from 'react'
 

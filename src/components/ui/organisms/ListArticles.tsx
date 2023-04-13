@@ -1,6 +1,6 @@
+import { Article } from '@/ui/molecules'
 import { Box, Grid, Typography } from '@mui/material'
 import * as React from 'react'
-import Article from '../molecules/Article'
 
 export interface IListArticlesProps {}
 

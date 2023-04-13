@@ -1,4 +1,4 @@
-import DefaultLayout from '@/components/ui/layout/DefaultLayout'
+import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
 import * as React from 'react'
 
 export interface IAllPageProps {}
