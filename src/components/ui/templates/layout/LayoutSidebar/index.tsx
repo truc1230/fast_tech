@@ -1,8 +1,8 @@
+import Footer from '@/ui/templates/layout/Footer'
+import Navbar from '@/ui/templates/layout/Navbar'
+import Sidebar from '@/ui/templates/layout/Sidebar'
 import { Stack, Box, ListItem, Grid } from '@mui/material'
 import * as React from 'react'
-import Footer from '../Footer'
-import Navbar from '../Navbar'
-import Sidebar from '../Sidebar'
 export interface ILayoutSidebarProps {
   children: React.ReactNode
 }
@@ -16,7 +16,7 @@ export default function LayoutSidebar(props: ILayoutSidebarProps) {
           <Sidebar />
         </Grid>
         <Grid item md={9}>
-          {props.children}children
+          {props.children}
         </Grid>
       </Grid>
       <Footer />

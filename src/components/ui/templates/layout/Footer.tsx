@@ -1,3 +1,4 @@
+import { FormRegister } from '@/ui/molecules'
 import {
   Box,
   Grid,
@@ -12,7 +13,6 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import * as React from 'react'
-import FormRegister from '../molecules/FormRegister'
 // import
 export interface IFooterProps {}
 export const MENU_ITEMS = [

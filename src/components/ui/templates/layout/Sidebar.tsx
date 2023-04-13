@@ -1,8 +1,8 @@
 import { Box, Button, IconButton, Menu, Stack, Typography } from '@mui/material'
 import * as React from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import MenuItem from '../molecules/MenuItem'
 import Link from 'next/link'
+import { MenuItem } from '@/ui/molecules'
 
 export interface ISidebarProps {}
 
