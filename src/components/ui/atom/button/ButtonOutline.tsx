@@ -1,7 +1,6 @@
 import { Button } from '@mui/material'
 import * as React from 'react'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { size } from '@/utils'
+import { ArrowForwardIcon } from '@/components/icon'
 
 export interface IButtonOutlineProps {
   children: React.ReactNode
