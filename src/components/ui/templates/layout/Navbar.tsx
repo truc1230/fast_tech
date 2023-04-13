@@ -3,6 +3,7 @@ import { IconButton, Stack, Typography } from '@mui/material'
 import { KeyboardArrowDownIcon, SearchIcon } from '@/components/icon'
 import { ButtonNavbar } from '@/ui/atom'
 import { SectionButtonNavbar } from '@/ui/organisms'
+import Link from 'next/link'
 
 export const MENU_ITEMS = [
   {
@@ -66,7 +67,21 @@ function Navbar() {
       alignItems='center'
       justifyContent={'space-between'}
     >
-      <Typography variant='h4'>Fast Tech</Typography>
+      <Link href={''} passHref className='hover:'>
+        <Typography
+          variant='h4'
+          fontWeight={700}
+          fontSize={'36px'}
+          sx={{
+            backgroundImage: 'linear-gradient(to right, purple, red)',
+            '-webkit-background-clip': 'text',
+            color: 'transparent',
+            backgroundClip: 'text'
+          }}
+        >
+          Fast Tech
+        </Typography>
+      </Link>
       <Stack direction={'row'} justifyContent='space-around' spacing={4}>
         {MENU_ITEMS.map((item) => (
           <SectionButtonNavbar
