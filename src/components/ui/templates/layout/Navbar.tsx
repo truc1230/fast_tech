@@ -4,6 +4,9 @@ import { KeyboardArrowDownIcon, SearchIcon } from '@/components/icon'
 import { ButtonNavbar } from '@/ui/atom'
 import { SectionButtonNavbar } from '@/ui/organisms'
 import Link from 'next/link'
+import ContactForm from '@/ui/organisms/ContactForm'
+import React from 'react'
+import { Modal } from '@/ui/molecules'
 
 export const MENU_ITEMS = [
   {
@@ -60,6 +63,9 @@ export const MENU_ITEMS = [
 ]
 
 function Navbar() {
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   return (
     <Stack
       className='h-20  w-[100vw] p-10 fixed top-0  shadow z-50 bg-white'
@@ -95,8 +101,9 @@ function Navbar() {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <ButtonNavbar>Get in touch</ButtonNavbar>
+        <ButtonNavbar onClick={handleOpen}>Get in touch</ButtonNavbar>
       </Stack>
+      <Modal onClose={handleClose} children={<ContactForm />} open={open} width={6 / 8} />
     </Stack>
   )
 }
