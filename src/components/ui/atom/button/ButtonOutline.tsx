@@ -1,8 +1,8 @@
-import { Button } from '@mui/material'
+import { Button, ButtonProps } from '@mui/material'
 import * as React from 'react'
 import { ArrowForwardIcon } from '@/components/icon'
 
-export interface IButtonOutlineProps {
+export interface IButtonOutlineProps extends ButtonProps {
   children: React.ReactNode
   className?: string
 }
@@ -10,7 +10,7 @@ export interface IButtonOutlineProps {
 export default function ButtonOutline(props: IButtonOutlineProps) {
   return (
     <Button
-      className={` hover:bg-red-600 px-8 hover:text-white  text-red-600  border-red-500 mt-4 w-fit ${props.className}`}
+      className={` hover:bg-red-600 px-8 hover:text-white  text-red-600  border-red-500 mt-4 w-fit ${props.className}  {...props}`}
       variant='outlined'
       size='medium'
     >
