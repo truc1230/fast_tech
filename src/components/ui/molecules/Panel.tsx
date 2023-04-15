@@ -1,17 +1,18 @@
 import { ButtonOutline } from '@/ui/atom'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography, StackProps } from '@mui/material'
 import * as React from 'react'
 
-export interface IPanelProps {
+export interface IPanelProps extends StackProps {
   title?: string
   content?: string
   action?: string
   src?: string
   center?: boolean
+  hasButton?: boolean
 }
 
 export default function Panel(props: IPanelProps) {
-  const { title, content, action, src, center = false } = props
+  const { title, content, action, src, center = false, hasButton = true } = props
 
   const propsCenter = {}
   return (
@@ -20,6 +21,7 @@ export default function Panel(props: IPanelProps) {
       alignItems={center ? 'center' : ''}
       textAlign={center ? 'center' : 'start'}
       height={'70vh'}
+      {...props}
       sx={{
         backgroundImage: `url(${
           src ||
@@ -60,7 +62,8 @@ export default function Panel(props: IPanelProps) {
             `We help you understand your technology journey, navigate the complex world of data,
           digitise business process or provide a seamless user experience`}
         </Typography>
-        <ButtonOutline>Explore Our Solution</ButtonOutline>
+
+        {hasButton && <ButtonOutline>Explore Our Solution</ButtonOutline>}
       </Stack>
     </Stack>
   )

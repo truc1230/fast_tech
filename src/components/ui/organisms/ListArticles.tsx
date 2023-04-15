@@ -8,10 +8,10 @@ export interface IListArticlesProps {
 }
 
 export default function ListArticles(props: IListArticlesProps) {
-  const { title } = props
+  const { title = 'News' } = props
   return (
     <Box padding={8}>
-      <Typography variant='h4'>{title || 'News'}</Typography>
+      <Typography variant='h4'>{title}</Typography>
       <Grid container spacing={8}>
         <Grid item md={4}>
           <Article />
