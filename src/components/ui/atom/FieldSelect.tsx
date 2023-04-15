@@ -33,28 +33,22 @@ const ITEM_PADDING_TOP = 8
 
 const FieldSelect = (props: Props) => {
   const { data = names, title = 'Name' } = props
+  console.log(props)
   const theme = useTheme()
-  const [selected, setSelected] = React.useState<string[]>([])
+  // const [selected, setSelected] = React.useState<string[]>([])
 
-  const handleChange = (event: SelectChangeEvent<typeof selected>) => {
-    const {
-      target: { value }
-    } = event
-    setSelected(typeof value === 'string' ? value.split(',') : value)
-  }
   return (
     <div>
       <FormControl fullWidth>
         <InputLabel id='demo-multiple-name-label'>{title}</InputLabel>
         <Select
           multiple={false}
-          value={selected}
           input={<OutlinedInput label='Name' />}
           MenuProps={MenuProps}
           {...props}
         >
           {data.map((item) => (
-            <MenuItem key={item} value={item} style={getStyles(item, selected, theme)}>
+            <MenuItem key={item} value={item}>
               {item}
             </MenuItem>
           ))}
