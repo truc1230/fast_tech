@@ -11,20 +11,6 @@ import {
 } from '@mui/material'
 import React from 'react'
 
-type Props = {
-  data?: Array<string>
-  title?: string
-} & SelectProps
-const ITEM_HEIGHT = 48
-const ITEM_PADDING_TOP = 8
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
-    }
-  }
-}
-
 const names = [
   'Oliver Hansen',
   'Van Henry',
@@ -38,14 +24,13 @@ const names = [
   'Kelly Snyder'
 ]
 
-function getStyles(name: string, selected: string[], theme: Theme) {
-  return {
-    fontWeight:
-      selected.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  }
-}
+type Props = {
+  data?: Array<string>
+  title?: string
+} & SelectProps
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
+
 const FieldSelect = (props: Props) => {
   const { data = names, title = 'Name' } = props
   console.log(props)
@@ -72,5 +57,25 @@ const FieldSelect = (props: Props) => {
     </div>
   )
 }
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
+    }
+  }
+}
+
+
+
+function getStyles(name: string, selected: string[], theme: Theme) {
+  return {
+    fontWeight:
+      selected.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium
+  }
+}
+
 
 export default FieldSelect
