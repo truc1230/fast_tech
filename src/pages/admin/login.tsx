@@ -13,6 +13,12 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data)
   }
+  const validateNoSpace = (value: string) => {
+    if (value.indexOf(' ') >= 0) {
+      return 'Không được chứa khoảng trắng'
+    }
+    return true
+  }
   return (
     <Grid container minHeight='100vh'>
       <Grid
@@ -34,7 +40,18 @@ const LoginPage = () => {
             label='Tên đăng nhập'
             fullWidth
             margin='normal'
-            {...register('username', { required: 'Vui lòng nhập tên đăng nhập' })}
+            {...register('username', {
+              required: 'Vui lòng nhập tên đăng nhập',
+              minLength: {
+                value: 6,
+                message: 'Tên đăng nhập phải có độ dài tối thiểu 6 ký tự'
+              },
+              maxLength: {
+                value: 12,
+                message: 'Tên đăng nhập không được vượt quá 12 ký tự'
+              },
+              validate: validateNoSpace
+            })}
           />
           {errors.username && (
             <Typography sx={{ color: 'red' }}>
@@ -49,7 +66,14 @@ const LoginPage = () => {
             type='password'
             fullWidth
             margin='normal'
-            {...register('password', { required: 'Vui lòng nhập mật khẩu' })}
+            {...register('password', {
+              required: 'Vui lòng nhập mật khẩu',
+              minLength: {
+                value: 8,
+                message: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự'
+              },
+              validate: validateNoSpace
+            })}
           />
           {errors.password && (
             <Typography sx={{ color: 'red' }}>
