@@ -18,10 +18,11 @@ export default index
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
   const session = await getSession({ req })
+  console.log(session)
   if (!session) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/admin/login',
         premanent: false
       }
     }

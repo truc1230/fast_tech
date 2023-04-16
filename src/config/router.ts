@@ -15,10 +15,5 @@ export const adminRoutes = [
     title: 'Article',
     icon: Description,
     to: 'admin/article'
-  },
-  {
-    title: 'Log Out',
-    icon: LogoutIcon,
-    to: 'admin/signout'
   }
 ]
