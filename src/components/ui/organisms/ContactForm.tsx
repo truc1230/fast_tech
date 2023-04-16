@@ -1,71 +1,41 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { TextField, Grid, Typography, TextareaAutosize } from '@mui/material'
 import { ButtonNavbar, FieldSelect } from '@/ui/atom'
-
-interface FormState {
-  name: string
-  address: string
-  email: string
-  message: string
-}
-
-const initialFormState: FormState = {
-  name: '',
-  address: '',
-  email: '',
-  message: ''
-}
+import { useForm } from 'react-hook-form'
 
 export default function ContactForm() {
-  const [formState, setFormState] = useState<FormState>(initialFormState)
-
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>
-  ) => {
-    const name = event.target.name
-    const value = event.target.value
-    setFormState({ ...formState, [name]: value as string })
-  }
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    console.log(formState)
+  const { register, handleSubmit } = useForm()
+  const onSubmit = (data: any) => {
+    console.log(data)
     // send data to server here
-    setFormState(initialFormState)
   }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
             id='name'
-            name='name'
             label='Tên'
             fullWidth
-            value={formState.name}
-            onChange={handleChange}
+            {...register('name', { required: true })}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FieldSelect
             labelId='address-label'
             id='address'
-            name='address'
-            value={formState.address}
-            onChange={handleChange}
+            title='Address'
+            {...register('address', { required: true })}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             required
             id='email'
-            name='email'
             label='Email'
             fullWidth
-            value={formState.email}
-            onChange={handleChange}
+            {...register('email', { required: true })}
           />
         </Grid>
         <Grid item xs={12}>
@@ -73,7 +43,6 @@ export default function ContactForm() {
           <TextareaAutosize
             placeholder='Viết gì đó vào đây'
             id='message'
-            name='message'
             style={{
               width: '100%',
               resize: 'none',
@@ -82,8 +51,7 @@ export default function ContactForm() {
               borderBottom: '1px solid black'
             }}
             className='border-b border-gray-400 hover:border-blue-500 hover:outline-none'
-            value={formState.message}
-            onChange={handleChange}
+            {...register('message', { required: true })}
             minRows={4}
           />
         </Grid>
