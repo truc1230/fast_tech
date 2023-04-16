@@ -80,7 +80,7 @@ function Navbar() {
           fontSize={'36px'}
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
-            '-webkit-background-clip': 'text',
+            WebkitBackgroundClip: 'text',
             color: 'transparent',
             backgroundClip: 'text'
           }}
@@ -89,8 +89,9 @@ function Navbar() {
         </Typography>
       </Link>
       <Stack direction={'row'} justifyContent='space-around' spacing={4}>
-        {MENU_ITEMS.map((item) => (
+        {MENU_ITEMS.map((item, idx) => (
           <SectionButtonNavbar
+            key={idx}
             sub={item.children}
             icon={<KeyboardArrowDownIcon fontSize='small' />}
           >
