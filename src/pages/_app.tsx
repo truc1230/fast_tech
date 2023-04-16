@@ -1,16 +1,18 @@
 /** @format */
 
-import '../styles/global.css';
+import '../styles/global.css'
 
-import type { AppProps } from 'next/app';
-import { StoreProviderWrapper, ThemeProviderWrappers } from '@/wrapper';
-
-const MyApp = ({ Component, pageProps }: AppProps) => (
+import type { AppProps } from 'next/app'
+import { StoreProviderWrapper, ThemeProviderWrappers } from '@/wrapper'
+import { SessionProvider, useSession } from 'next-auth/react'
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => (
   <StoreProviderWrapper>
-    <ThemeProviderWrappers>
-      <Component {...pageProps} />
-    </ThemeProviderWrappers>
+    <SessionProvider session={session}>
+      <ThemeProviderWrappers>
+        <Component {...pageProps} />
+      </ThemeProviderWrappers>
+    </SessionProvider>
   </StoreProviderWrapper>
-);
+)
 
-export default MyApp;
+export default MyApp
