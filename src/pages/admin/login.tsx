@@ -1,17 +1,39 @@
 import React from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import { TextField, Button, Box, FormControlLabel, Checkbox } from '@material-ui/core'
-import { Grid, Stack, Typography } from '@mui/material'
+import {
+  Grid,
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  FormControlLabel,
+  Checkbox
+} from '@mui/material'
+import { ButtonNavbar } from '@/ui/atom'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const LoginPage = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+  if (session) {
+    router.push('/admin')
+  }
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const status = await signIn('credentials', {
+      ...data,
+      redirect: false,
+      callbackUrl: '/admin'
+    })
+    console.log(status)
+    if (status?.ok) router.push(status?.url)
   }
   const validateNoSpace = (value: string) => {
     if (value.indexOf(' ') >= 0) {
@@ -69,8 +91,8 @@ const LoginPage = () => {
             {...register('password', {
               required: 'Vui lòng nhập mật khẩu',
               minLength: {
-                value: 8,
-                message: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự'
+                value: 6,
+                message: 'Mật khẩu phải có độ dài tối thiểu 6 ký tự'
               },
               validate: validateNoSpace
             })}
@@ -86,9 +108,9 @@ const LoginPage = () => {
             control={<Checkbox name='remember' color='primary' />}
             label='Remember me'
           />
-          <Button type='submit' variant='contained' color='primary' fullWidth>
+          <ButtonNavbar type='submit' variant='contained' fullWidth>
             Đăng nhập
-          </Button>
+          </ButtonNavbar>
         </form>
       </Grid>
     </Grid>
