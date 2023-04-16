@@ -51,12 +51,12 @@ const FieldSelect = (props: Props) => {
   const theme = useTheme()
   const [selected, setSelected] = React.useState<string[]>([])
 
-  const handleChange = (event: SelectChangeEvent<typeof selected>) => {
-    const {
-      target: { value }
-    } = event
-    setSelected(typeof value === 'string' ? value.split(',') : value)
-  }
+  // const handleChange = (event: SelectChangeEvent<typeof selected>) => {
+  //   const {
+  //     target: { value }
+  //   } = event
+  //   setSelected(typeof value === 'string' ? value.split(',') : value)
+  // }
   return (
     <div>
       <FormControl fullWidth>

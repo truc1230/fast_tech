@@ -105,10 +105,11 @@ export default function SectionButtonNavbar(props: ISectionButtonNavbarProps) {
       >
         <Box className='min-w-[30vw]  px-4'>
           {props.sub &&
-            props.sub.data.map((item) => {
+            props.sub.data.map((item, idx) => {
               let href = `${convertTitleToHref(props.sub.title)}${convertTitleToHref(item.title)}`
               return (
                 <Link
+                  key={idx}
                   href={href}
                   passHref
                   // className={`${asPath.includes(href) ? 'text-red' : ''}`}

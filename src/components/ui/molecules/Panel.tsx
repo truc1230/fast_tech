@@ -12,7 +12,7 @@ export interface IPanelProps extends StackProps {
 }
 
 export default function Panel(props: IPanelProps) {
-  const { title, content, action, src, center = false, hasButton = true } = props
+  const { title, content, action, src, center = false, hasButton = true, ...rest } = props
 
   const propsCenter = {}
   return (
@@ -21,7 +21,7 @@ export default function Panel(props: IPanelProps) {
       alignItems={center ? 'center' : ''}
       textAlign={center ? 'center' : 'start'}
       height={'70vh'}
-      {...props}
+      {...rest}
       sx={{
         backgroundImage: `url(${
           src ||
@@ -53,7 +53,7 @@ export default function Panel(props: IPanelProps) {
           fontSize={'36px'}
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
-            '-webkit-background-clip': 'text',
+            WebkitBackgroundClip: 'text',
             color: 'transparent',
             backgroundClip: 'text'
           }}
