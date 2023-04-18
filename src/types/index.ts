@@ -9,3 +9,5 @@ export type QueryParams<T> = {
 export type TypeOrderBy = 'desc' | 'asc'
 
 export type Users = Omit<User, 'password'>[]
+
+export type FormUser = Partial<User>

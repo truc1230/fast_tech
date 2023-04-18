@@ -1,6 +1,8 @@
 /** @format */
 
 import '../styles/global.css'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import type { AppProps } from 'next/app'
 import { StoreProviderWrapper, ThemeProviderWrappers } from '@/wrapper'
@@ -10,6 +12,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) =>
     <SessionProvider session={session}>
       <ThemeProviderWrappers>
         <Component {...pageProps} />
+        <ToastContainer position='top-center' pauseOnFocusLoss={false} />
       </ThemeProviderWrappers>
     </SessionProvider>
   </StoreProviderWrapper>
