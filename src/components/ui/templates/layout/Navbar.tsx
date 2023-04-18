@@ -6,7 +6,6 @@ import { SectionButtonNavbar } from '@/ui/organisms'
 import Link from 'next/link'
 import ContactForm from '@/ui/organisms/ContactForm'
 import React from 'react'
-import { Modal } from '@/ui/molecules'
 
 export const MENU_ITEMS = [
   {
@@ -102,9 +101,8 @@ function Navbar() {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <ButtonNavbar onClick={handleOpen}>Get in touch</ButtonNavbar>
       </Stack>
-      <Modal onClose={handleClose} children={<ContactForm />} open={open} width={6 / 8} />
+      <ContactForm/>
     </Stack>
   )
 }
