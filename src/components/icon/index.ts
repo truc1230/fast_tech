@@ -8,6 +8,14 @@ import Person from '@mui/icons-material/Person'
 import Description from '@mui/icons-material/Description'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import LogoutIcon from '@mui/icons-material/Logout'
+import DeleteIcon from '@mui/icons-material/Delete'
+import NoAccountsIcon from '@mui/icons-material/NoAccounts'
+import CircleIcon from '@mui/icons-material/Circle'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import EditIcon from '@mui/icons-material/Edit'
+import RestartAltIcon from '@mui/icons-material/RestartAlt'
+import AddIcon from '@mui/icons-material/Add'
+
 export {
   ArrowForwardIcon,
   KeyboardArrowDownIcon,
@@ -18,5 +26,12 @@ export {
   Person,
   Description,
   DashboardIcon,
-  LogoutIcon
+  LogoutIcon,
+  DeleteIcon,
+  NoAccountsIcon,
+  CircleIcon,
+  AccountCircleIcon,
+  EditIcon,
+  RestartAltIcon,
+  AddIcon
 }

@@ -13,7 +13,9 @@ const SidebarAdmin = (props: Props) => {
     signOut({ callbackUrl: '/admin/login' })
   }
   return (
-    <Stack className=' px-8 py-5 fixed h-screen shadow-md' spacing={2}>
+    <Stack 
+    // className=' px-8 py-5 fixed h-screen shadow-md ' 
+     spacing={2}>
       {adminRoutes.map((route) => (
         <div key={route.title}>
           <Link href={route.to}>
