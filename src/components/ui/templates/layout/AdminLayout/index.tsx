@@ -9,11 +9,11 @@ export interface IAdminLayoutProps {
 
 export default function AdminLayout(props: IAdminLayoutProps) {
   return (
-    <Grid container className='min-h-[1000px] ' spacing={4}>
-      <Grid item md={3}>
+    <Grid container height={'100vh'}>
+      <Grid item md={3} bgcolor='transparent' zIndex={999} xs={0} boxShadow={1}>
         <SidebarAdmin />
       </Grid>
-      <Grid item md={9}>
+      <Grid item xs boxShadow={2} >
         {props.children}
       </Grid>
     </Grid>

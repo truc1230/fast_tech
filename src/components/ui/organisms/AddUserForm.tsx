@@ -13,7 +13,7 @@ import {
   Radio,
   Typography
 } from '@mui/material'
-import { useControlPopup } from '@/components/hooks/useControlPopup'
+import { useControlPopup } from '@/components/hooks'
 
 const AddUserForm = () => {
   const {

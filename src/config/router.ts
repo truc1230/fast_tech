@@ -4,16 +4,16 @@ export const adminRoutes = [
   {
     title: 'Dashboard',
     icon: DashboardIcon,
-    to: 'admin/dashboard'
+    to: '/admin/dashboard'
   },
   {
     title: 'User',
     icon: Person,
-    to: 'admin/user'
+    to: '/admin/user'
   },
   {
     title: 'Article',
     icon: Description,
-    to: 'admin/article'
+    to: '/admin/article'
   }
 ]
