@@ -1,5 +1,6 @@
 /** @format */
 
 export const API_URL = {
-  auth: '/auth',
-};
+  URL_AUTH: '/auth'
+}
+export const URL_USERS = '/users'
