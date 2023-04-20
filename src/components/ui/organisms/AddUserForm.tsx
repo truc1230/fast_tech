@@ -8,38 +8,45 @@ import {
   Button,
   TextField,
   FormControlLabel,
-  Checkbox,
   RadioGroup,
   Radio,
   Typography
 } from '@mui/material'
-import { useControlPopup } from '@/components/hooks'
+import { useRouter } from 'next/router'
+import { FormUser } from '@/types'
 
-const AddUserForm = () => {
+type Props = {
+  open: boolean
+  onClose: () => void
+  user?: FormUser
+  onSubmit: (data: FormUser) => void
+}
+
+const AddUserForm = (props: Props) => {
+  const { open, onClose, onSubmit: handleSubmitAdd } = props
+  const router = useRouter()
+
+  const id = router.query.id
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm()
-  const {
-    open: openContactForm,
-    handleOpen: handleOpenContactForm,
-    handleClose: handleCloseContactForm
-  } = useControlPopup()
+  } = useForm({})
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
-    reset()
+    if (id) data.id = id
+    handleSubmitAdd(data)
   }
 
   return (
     <>
       <Dialog
-        open={openContactForm}
+        open={open}
         onClose={() => {
           reset()
-          handleCloseContactForm()
+          onClose()
         }}
         aria-labelledby='form-dialog-title'
       >
@@ -52,7 +59,7 @@ const AddUserForm = () => {
               label='Name'
               type='text'
               fullWidth
-              {...register('name', { required: 'Vui lòng nhập tên' })}
+              {...register('name')}
               error={errors.name ? true : false}
               helperText={
                 errors.name
@@ -68,7 +75,7 @@ const AddUserForm = () => {
               label='Username'
               type='text'
               fullWidth
-              {...register('username', { required: 'Vui lòng nhập tên đăng nhập' })}
+              {...register('username')}
               error={errors.username ? true : false}
               helperText={
                 errors.username
@@ -79,10 +86,7 @@ const AddUserForm = () => {
               }
             />
             <Typography className='pt-[14px]'>Role:</Typography>
-            <RadioGroup
-              aria-label='role'
-              {...register('role', { required: 'Vui lòng chọn vai trò' })}
-            >
+            <RadioGroup aria-label='role' {...register('role')}>
               <FormControlLabel value='ADMIN' control={<Radio />} label='Admin' />
               <FormControlLabel value='USER' control={<Radio />} label='User' />
             </RadioGroup>
@@ -92,7 +96,7 @@ const AddUserForm = () => {
             <Button
               onClick={() => {
                 reset()
-                handleCloseContactForm()
+                onClose()
               }}
               color='error'
             >
@@ -104,7 +108,6 @@ const AddUserForm = () => {
           </DialogActions>
         </form>
       </Dialog>
-      <Button onClick={handleOpenContactForm}>Add User</Button>
     </>
   )
 }

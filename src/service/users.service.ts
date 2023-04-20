@@ -1,11 +1,13 @@
 import axiosInstance from '@/service/axiosInstance'
-import { QueryParams } from '@/types'
+import { FormUser, QueryParams, TypeId } from '@/types'
 import { User as TypeUser } from '@prisma/client'
 import { URL_USERS } from './api_url'
 
 export const userService = {
-  getAll: async (params?: QueryParams<TypeUser>) => axiosInstance.get(URL_USERS, { params }),
-  create: (payload: TypeUser) => axiosInstance.post(URL_USERS, payload)
+  getAll: async (params?: QueryParams<TypeUser>) =>
+    (await axiosInstance.get(URL_USERS, { params })).data,
+  get: async (payload: TypeId) => (await axiosInstance.get(URL_USERS + payload)).data,
+  create: (payload: FormUser) => axiosInstance.post(URL_USERS, payload),
   // delete: (payload) => axiosInstance.delete(URL_CATALOG_LIST + payload),
-  // update: (payload) => axiosInstance.put(URL_CATALOG_LIST + payload.id + '/', payload.data)
+  update: (id: TypeId, payload: FormUser) => axiosInstance.put(URL_USERS + id, payload)
 }
