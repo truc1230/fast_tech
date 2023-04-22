@@ -53,6 +53,7 @@ export const authOptions = {
         username: { label: 'username', type: 'text' },
         password: { label: 'password', type: 'password' }
       },
+      //  @ts-ignore
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         if (!credentials?.username || !credentials?.password) {
@@ -73,10 +74,12 @@ export const authOptions = {
         if (!checkPassword) {
           throw new Error("Username or Password doesn't match")
         }
+         
         return {
+          ...user,
           email: user.id,
           name: user.name,
-          picture: user?.picture || ''
+          picture: ''
           // username: user.username
         }
       }

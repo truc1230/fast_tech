@@ -22,51 +22,10 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   try {
     console.log(req.query)
-    const {
-      limit = 10,
-      page = 1,
-      order = 'id',
-      by = 'asc',
-      textSearch
-    }: QueryParams<TArticle> = req.query
-    const offset = (page - 1) * limit
-    let where = {}
-    if (textSearch) {
-      // where = {
-      //   OR: [
-      //     {
-      //       name: {
-      //         contains: textSearch
-      //       }
-      //     },
-      //     {
-      //       username: {
-      //         contains: textSearch
-      //       }
-      //     }
-      //   ]
-      // }
-    }
+    const params: QueryParams<TArticle> = req.query
+    const { data, total } = await getArticles(params)
 
-    const articles = await prisma.article.findMany({
-      where,
-      orderBy: {
-        [order]: by
-      },
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true
-            // image: true
-          }
-        }
-      },
-      take: Number(limit),
-      skip: offset
-    })
-
-    res.status(200).json({ data: articles, total: await prisma.article.count({ where }) })
+    res.status(200).json({ data, total })
   } catch (error) {
     console.error(error)
     res.status(500).send('Unexpected error occurred')
@@ -82,11 +41,63 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
       data: {
         title: title,
         content: content,
-        authorId: token.email
+        authorId: Number(token.email as string)
       }
     })
     return res.json({ data: result, message: 'create successfully' })
   } else {
     res.status(401).send({ message: 'Unauthorized' })
+  }
+}
+
+export async function getArticles(params: QueryParams<TArticle>) {
+  // const response = await fetch(/* external API endpoint */)
+  // const jsonData = await response.json()
+  // return jsonData
+  const {
+    limit = 10,
+    page = 1,
+    order = 'id',
+    by = 'asc',
+    textSearch
+  }: QueryParams<TArticle> = params
+  const offset = (page - 1) * limit
+  let where = {}
+  if (textSearch) {
+    // where = {
+    //   OR: [
+    //     {
+    //       name: {
+    //         contains: textSearch
+    //       }
+    //     },
+    //     {
+    //       username: {
+    //         contains: textSearch
+    //       }
+    //     }
+    //   ]
+    // }
+  }
+  const articles = await prisma.article.findMany({
+    where,
+    orderBy: {
+      [order]: by
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true
+          // image: true
+        }
+      }
+    },
+    take: Number(limit),
+    skip: offset
+  })
+  return {
+    data: articles,
+    total: await prisma.article.count({ where })
   }
 }

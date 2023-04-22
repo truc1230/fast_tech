@@ -56,7 +56,7 @@ function Editor(props: Props) {
   } = useForm({
     defaultValues: article
   })
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormArticle) => {
     try {
       console.log(data)
       mutate(data)
@@ -84,7 +84,7 @@ function Editor(props: Props) {
               </ButtonNavbar>
               <ButtonNavbar
                 sx={{
-                  backgroundColor: 'primary',
+                  backgroundColor: 'primary'
                 }}
                 variant='contained'
                 type='submit'
