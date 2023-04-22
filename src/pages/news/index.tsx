@@ -1,10 +1,13 @@
+import { articleService } from '@/service'
 import { Article, FormSearch, Panel } from '@/ui/molecules'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
 import { Chip, Grid, Stack, Typography } from '@mui/material'
+import { Article as TArticles } from '@prisma/client'
 import React from 'react'
 
 type Props = {
   title: string
+  articles: TArticles[]
 }
 type CategoryType = {
   color?: 'primary' | 'error' | 'secondary' | 'success' | 'default' | 'info' | 'warning' | undefined
@@ -28,9 +31,10 @@ const categories: CategoryType[] = [
     color: 'success'
   }
 ]
-const articles = [{}]
+// const articles = [{}]
 const index = (props: Props) => {
-  const { title } = props
+  const { title, articles } = props
+  console.log(articles)
   return (
     <DefaultLayout>
       <Typography>{title}</Typography>
@@ -51,7 +55,12 @@ const index = (props: Props) => {
         <FormSearch />
       </Stack>
       <Grid container spacing={8} padding={8}>
-        <Grid item md={4}>
+        {articles.map((item) => (
+          <Grid key={item.id} item md={4}>
+            <Article data={item} />
+          </Grid>
+        ))}
+        {/* <Grid item md={4}>
           <Article />
         </Grid>
         <Grid item md={4}>
@@ -77,7 +86,7 @@ const index = (props: Props) => {
         </Grid>
         <Grid item md={4}>
           <Article />
-        </Grid>
+        </Grid> */}
       </Grid>
     </DefaultLayout>
   )
@@ -86,9 +95,11 @@ const index = (props: Props) => {
 export default index
 
 export async function getStaticProps() {
+  const res = await articleService.getAll()
   return {
     props: {
-      title: 'Home page'
+      title: 'Home page',
+      articles: res.data
     }
   }
 }

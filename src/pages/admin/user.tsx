@@ -1,4 +1,4 @@
-import ListUser from '@/feature/admin/ListUser'
+import ListUser from '@/feature/user/ListUser'
 import React from 'react'
 
 type Props = {}
