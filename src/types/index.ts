@@ -18,3 +18,11 @@ export type TypeId = string | number
 export type TArticleWithAuthor = Article & {
   author: FormUser
 }
+
+export type TApiResponseError= {
+  response: {
+    data: {
+      message: string
+    }
+  }
+}

@@ -3,15 +3,13 @@ import * as React from 'react'
 
 type Props = {
   children: React.ReactNode
-  icon?: React.ReactElement
+  icon?: React.ElementType
 } & MenuItemProps
 
-export default function MyMenuItem({ children, icon, ...rest }: Props) {
-  const Icon = icon
-
+export default function MyMenuItem({ children, icon: Icon, ...rest }: Props) {
   return (
     <MenuItem className='h-[60px] p-0' {...rest}>
-      {icon ? <Icon /> : null}
+      {Icon && <Icon />}
       <Typography className='ml-2'>{children}</Typography>
     </MenuItem>
   )

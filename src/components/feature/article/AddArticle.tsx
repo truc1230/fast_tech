@@ -1,5 +1,5 @@
 import { articleService, userService } from '@/service'
-import { FormArticle, FormUser, TypeId } from '@/types'
+import { FormArticle, FormUser, TApiResponseError, TypeId } from '@/types'
 import { Editor } from '@/ui/organisms'
 import AdminLayout from '@/ui/templates/layout/AdminLayout'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -30,13 +30,12 @@ const AddArticle = (props: Props) => {
     onSuccess(data) {
       toast.success(data.data?.message || 'success')
     },
-    onError(data) {
+    onError(data: TApiResponseError) {
       toast.error(data?.response?.data?.message || 'error')
     }
   })
   return (
     <AdminLayout>
-      
       <Editor data={data?.data} mutate={mutate} />
     </AdminLayout>
   )

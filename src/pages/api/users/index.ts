@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import { User as TypeUser } from '@prisma/client'
-import prisma, { prisma } from '../../../lib/prisma'
+import  { prisma } from '../../../lib/prisma'
 
 // import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'

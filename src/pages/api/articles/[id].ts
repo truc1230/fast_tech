@@ -1,6 +1,6 @@
 // import prisma from '@/lib/prisma'
 import prisma from '@/lib/prisma'
-import { FormUser } from '@/types'
+import { FormUser, TypeId } from '@/types'
 import { Article } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -25,16 +25,12 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 async function handleDELETE(req: unknown, res: NextApiResponse<any>) {
   return res.json({})
 }
-async function handleGET(req: NextApiRequest, res: NextApiResponse) {
+export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
-  const checkArticle = await prisma.article.findUnique({
-    where: { id: Number(id) }
-    
-  })
+  const result = getArticle(id as string)
 
-  if (!checkArticle) return res.status(401).json({ message: 'Article not found' })
-
-  return res.json({ data: checkArticle })
+  if (!result) return res.status(401).json({ message: 'Article not found' })
+  return res.json({ data: result })
 }
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
   const { title, content }: Partial<Article> = req.body
@@ -54,4 +50,11 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
     data: updateData
   })
   return res.json({ data: updateUser, message: 'update successfully' })
+}
+export async function getArticle(id: TypeId) {
+  const checkArticle = await prisma.article.findUnique({
+    where: { id: Number(id) }
+  })
+  if (!checkArticle) return null
+  return checkArticle
 }

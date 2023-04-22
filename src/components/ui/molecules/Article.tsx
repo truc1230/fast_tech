@@ -6,17 +6,17 @@ import moment from 'moment'
 import Link from 'next/link'
 
 type Props = {
-  data: Article
+  data?: Article
 }
 
 export default function Article(props: Props) {
   const { data } = props
   return (
-    <Link href={`/news/${data.id}`}>
+    <Link href={`/news/${data?.id}`}>
       <Stack spacing={4} className='hover:text-purple-400'>
         <Image
           width=''
-          src={data?.image || 'https://nashtechglobal.com/media/nxhf45nq/dlr-2023-manchester.png'}
+          src={'https://nashtechglobal.com/media/nxhf45nq/dlr-2023-manchester.png'}
           height={''}
         />
         <Typography variant='h5'>
