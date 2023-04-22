@@ -13,6 +13,7 @@ import {
 import { ButtonNavbar } from '@/ui/atom'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const LoginPage = () => {
   const { data: session } = useSession()
@@ -32,8 +33,8 @@ const LoginPage = () => {
       redirect: false,
       callbackUrl: '/admin'
     })
-    console.log(status)
-    if (status?.ok) router.push(status?.url)
+    if (status?.ok) router.push('/admin')
+    if (!status?.ok) toast.error(status?.error)
   }
   const validateNoSpace = (value: string) => {
     if (value.indexOf(' ') >= 0) {
