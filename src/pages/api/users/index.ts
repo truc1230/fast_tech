@@ -1,11 +1,13 @@
 import * as _ from 'lodash'
 import { User as TypeUser } from '@prisma/client'
-import { prisma } from '../../../lib/prisma'
+import prisma, { prisma } from '../../../lib/prisma'
 
 // import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { QueryParams } from '@/types'
 import { hash } from 'bcryptjs'
+import { getSession } from 'next-auth/react'
+import { getToken } from 'next-auth/jwt'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -29,8 +31,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
       textSearch
     }: QueryParams<TypeUser> = req.query
     const offset = (page - 1) * limit
-    console.log('offset',offset)
-    console.log('limit',limit)
     let where = {}
     if (textSearch) {
       where = {
@@ -48,7 +48,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
         ]
       }
     }
-
     const users = await prisma.user.findMany({
       where,
       orderBy: {

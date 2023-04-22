@@ -1,5 +1,5 @@
 /** @format */
-
+import 'react-quill/dist/quill.snow.css'
 import '../styles/global.css'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

@@ -15,3 +15,6 @@ export type FormUser = Partial<User>
 export type FormArticle = Partial<Article>
 
 export type TypeId = string | number
+export type TArticleWithAuthor = Article & {
+  author: FormUser
+}

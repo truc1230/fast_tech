@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 type Props = {}
 
-const LIMIT = 3
+const LIMIT = 5
 const ListUser = (props: Props) => {
   const [page, setPage] = useState(1)
   const { open, handleClose: handleCloseDialog, handleOpen } = useControlPopup()
@@ -55,18 +55,6 @@ const ListUser = (props: Props) => {
       toast.error(data?.response?.data?.message || 'error')
     }
   })
-
-  // const [userSelected, setUserSelected] = useState({})
-  // const id = router.query.id
-  // console.log(id)
-
-  // useEffect(() => {
-  //   if (!id) {
-  //     setUserSelected({})
-  //     return
-  //   }
-  //   userService.get(id).then((res) => setUserSelected(res.data.data))
-  // }, [id])
 
   const handleClose = () => {
     handleCloseDialog()
