@@ -31,7 +31,7 @@ const RecruitmentCard = (props: RecruitmentCardProps) => {
                 <Typography variant='subtitle1' color='text.secondary' gutterBottom>
                   {job.salary}
                 </Typography>
-                <Link href={`/recruiment/${job.id}`}>Show more</Link>
+                <Link href={`/recruitment/${job.id}`}>Show more</Link>
               </CardContent>
             </Card>
           </Grid>
