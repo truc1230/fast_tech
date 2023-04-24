@@ -17,3 +17,21 @@ export const adminRoutes = [
     to: '/admin/article'
   }
 ]
+
+export const guestRouter = [
+  {
+    title: 'About Our',
+    icon: DashboardIcon,
+    to: '/about'
+  },
+  {
+    title: 'News',
+    icon: Person,
+    to: '/news'
+  },
+  {
+    title: 'Recruitment',
+    icon: Description,
+    to: '/recruitment'
+  }
+]

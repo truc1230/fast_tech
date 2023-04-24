@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma'
 import NextAuth from 'next-auth'
 import { compare } from 'bcryptjs'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { encode, decode } from 'next-auth/jwt'
+import _ from 'lodash'
 // export default NextAuth({
 //   secret: process.env.SECRET,
 //   providers: [
@@ -74,9 +74,9 @@ export const authOptions = {
         if (!checkPassword) {
           throw new Error("Username or Password doesn't match")
         }
-         
+
         return {
-          ...user,
+          ..._.omit(user, 'password'),
           email: user.id,
           name: user.name,
           picture: ''
@@ -85,16 +85,16 @@ export const authOptions = {
       }
     })
   ],
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     console.log(token)
-  //     token = {
-  //       ...token,
-  //       ...user
-  //     }
-  //     return token
-  //   }
-  // },
+  callbacks: {
+    async jwt(args: { token: any; user: any }) {
+      const { token, user } = args
+      const updateToken = {
+        ...token,
+        ...user
+      }
+      return updateToken
+    }
+  },
   debug: process.env.NODE_ENV === 'development'
 
   // session: {

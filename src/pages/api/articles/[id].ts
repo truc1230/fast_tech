@@ -27,7 +27,7 @@ async function handleDELETE(req: unknown, res: NextApiResponse<any>) {
 }
 export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
-  const result = getArticle(id as string)
+  const result = await getArticle(id as string)
 
   if (!result) return res.status(401).json({ message: 'Article not found' })
   return res.json({ data: result })
