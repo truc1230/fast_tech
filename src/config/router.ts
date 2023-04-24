@@ -20,7 +20,7 @@ export const adminRoutes = [
 
 export const guestRouter = [
   {
-    title: 'About Our',
+    title: 'About Us',
     icon: DashboardIcon,
     to: '/about'
   },
