@@ -19,7 +19,7 @@ type Props = {
   data: TJobInformation
 }
 
-const DetailRecruiment = (props: Props) => {
+const DetailRecruitment = (props: Props) => {
   const { data } = props
   const router = useRouter()
   const { id } = router.query
@@ -48,7 +48,7 @@ const DetailRecruiment = (props: Props) => {
                 <Typography variant='h6'>Yêu cầu công việc</Typography>
                 <Typography>{jobSelected?.jobRequirements}</Typography>
               </Box>
-                <Link href={`/recruiment/${id}/apply`} >
+                <Link href={`/recruitment/${id}/apply`} >
                   <ButtonNavbar variant="contained" color="primary" size='large' fullWidth>
                     Ứng tuyển
                   </ButtonNavbar>
@@ -66,4 +66,4 @@ const DetailRecruiment = (props: Props) => {
     </>
   )
 }
-export default DetailRecruiment
+export default DetailRecruitment

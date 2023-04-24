@@ -19,7 +19,7 @@ export type TArticleWithAuthor = Article & {
   author: FormUser
 }
 
-export type TApiResponseError= {
+export type TApiResponseError = {
   response: {
     data: {
       message: string

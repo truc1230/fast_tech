@@ -1,4 +1,4 @@
-import { IconButton, Stack, Typography } from '@mui/material'
+import { IconButton, Stack, MenuItem, Typography } from '@mui/material'
 
 import { KeyboardArrowDownIcon, SearchIcon } from '@/components/icon'
 import { ButtonNavbar } from '@/ui/atom'
@@ -7,6 +7,7 @@ import Link from 'next/link'
 import ContactForm from '@/ui/organisms/ContactForm'
 import React from 'react'
 import { Modal } from '@/ui/molecules'
+import { guestRouter } from '@/config'
 
 export const MENU_ITEMS = [
   {
@@ -88,7 +89,15 @@ function Navbar() {
           Fast Tech
         </Typography>
       </Link>
+
       <Stack direction={'row'} justifyContent='space-around' spacing={4}>
+        {guestRouter.map((item) => (
+          <Link key={item.to} href={item.to}>
+            <MenuItem>{item.title}</MenuItem>
+          </Link>
+        ))}
+        {/* Old menu item */}
+        {/* <Stack direction={'row'} justifyContent='space-around' spacing={4}>
         {MENU_ITEMS.map((item, idx) => (
           <SectionButtonNavbar
             key={idx}
@@ -97,7 +106,7 @@ function Navbar() {
           >
             {item.title}
           </SectionButtonNavbar>
-        ))}
+        ))} */}
 
         <IconButton>
           <SearchIcon />
