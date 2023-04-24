@@ -12,6 +12,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
 import { ButtonNavbar } from '@/ui/atom'
+import { emailService } from '@/service'
+import { toBase64 } from '@/utils/toBase64'
+import { ETypeSendMail } from '@/types'
 
 const ApplicationForm = () => {
   const router = useRouter()
@@ -22,8 +25,21 @@ const ApplicationForm = () => {
     formState: { errors }
   } = useForm()
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data)
+    const content = {
+      name: data.name,
+      email: data.email,
+      attachments: [
+        {
+          content: await toBase64(data.CV[0])
+        }
+      ],
+      introduce: data.introduce,
+      subject: 'CV of candidate',
+      type: ETypeSendMail.recruitment
+    }
+    emailService.send(content)
   }
 
   return (
@@ -61,13 +77,13 @@ const ApplicationForm = () => {
         </FormControl>
         <TextField
           label='Tại sao bạn phù hợp với công việc này?'
-          {...register('why-you-suitable-for-job', { required: true })}
+          {...register('introduce', { required: true })}
           fullWidth
           margin='normal'
           multiline
           rows={4}
-          error={errors['why-you-suitable-for-job'] ? true : false}
-          helperText={errors['why-you-suitable-for-job'] ? 'Vui lòng điền thông tin' : ''}
+          error={errors['introduce'] ? true : false}
+          helperText={errors['introduce'] ? 'Vui lòng điền thông tin' : ''}
         />
         <ButtonNavbar variant='contained' color='primary' type='submit' fullWidth>
           Gửi CV và ứng tuyển

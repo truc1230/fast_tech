@@ -26,3 +26,20 @@ export type TApiResponseError = {
     }
   }
 }
+export type TAttachmentEmail = {
+  content: string
+}
+export type TContentEmail = {
+  attachments?: TAttachmentEmail[]
+  name?: string
+  email?: string
+  address?: string
+  request?: string
+  subject: string
+  introduce?: string
+  type: ETypeSendMail
+}
+export enum ETypeSendMail {
+  contact,
+  recruitment
+}
