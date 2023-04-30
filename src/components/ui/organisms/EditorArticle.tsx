@@ -1,61 +1,35 @@
 import { ArrowBackIcon } from '@/components/icon'
 import { FormArticle } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
-import { Button, InputBase, Link, Stack, TextField, Typography } from '@mui/material'
+import { QuillEditor } from '@/ui/molecules'
+import { Stack, TextField, Typography } from '@mui/material'
 import { Article } from '@prisma/client'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
 
 import styled from 'styled-components'
-
-const modules = {
-  toolbar: [
-    //[{ 'font': [] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-    ['link', 'image'],
-    [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-    ['clean']
-  ]
-}
-
-const formats = [
-  //'font',
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'align',
-  'color',
-  'background'
-]
 
 export type Props = {
   data?: Article
   mutate: (article: FormArticle) => void
 }
 
-function Editor(props: Props) {
+function EditorArticle(props: Props) {
   const { data: article, mutate } = props
+  useEffect(() => {
+    if (article === undefined) return
+    reset(article)
+  }, [article])
+
   const router = useRouter()
   console.log('article', article)
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors }
-  } = useForm({
-    defaultValues: article
-  })
+  } = useForm({})
   const onSubmit = async (data: FormArticle) => {
     try {
       console.log(data)
@@ -113,16 +87,7 @@ function Editor(props: Props) {
             control={control}
             defaultValue=''
             rules={{ required: true }}
-            render={({ field }) => (
-              <ReactQuill
-                {...field}
-                theme='snow'
-                modules={modules}
-                formats={formats}
-                style={{ height: '600px' }}
-                // error={!!errors.content}
-              />
-            )}
+            render={({ field }) => <QuillEditor {...field} />}
           />
           {/* {errors.content && (
             <Typography color='error' variant='caption'>
@@ -141,4 +106,4 @@ const Container = styled.div`
   padding: 20px 13px 0;
 `
 
-export default Editor
+export default EditorArticle
