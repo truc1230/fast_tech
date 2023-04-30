@@ -27,6 +27,18 @@ model Article {
   author    User     @relation(fields: [authorId], references: [id])
 }
 
+model Recruitment {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String   @db.VarChar(255)
+  requirement String?
+  minSalary   Int
+  maxSalary   Int
+  location    String
+  amount      Int      @default(0)
+}
+
 enum Role {
   ADMIN
   USER

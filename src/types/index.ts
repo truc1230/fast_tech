@@ -1,4 +1,4 @@
-import { Article, User } from '@prisma/client'
+import { Article, Recruitment, User } from '@prisma/client'
 export type QueryParams<T> = {
   limit?: number
   page?: number
@@ -13,6 +13,7 @@ export type Users = Omit<User, 'password'>[]
 
 export type FormUser = Partial<User>
 export type FormArticle = Partial<Article>
+export type FormRecruitment = Partial<Omit<Recruitment, 'id'>>
 
 export type TypeId = string | number
 export type TArticleWithAuthor = Article & {
