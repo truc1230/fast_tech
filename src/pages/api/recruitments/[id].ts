@@ -1,7 +1,8 @@
 // import prisma from '@/lib/prisma'
 import prisma from '@/lib/prisma'
-import { FormUser, TypeId } from '@/types'
-import { Article } from '@prisma/client'
+import { getArticle } from '@/pages/api/articles/[id]'
+import { FormRecruitment, FormUser, TypeId } from '@/types'
+import { Article, Recruitment } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -27,23 +28,23 @@ async function handleDELETE(req: unknown, res: NextApiResponse<any>) {
 }
 export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
-  const result = await getArticle(id as string)
+  const result = await getRecruitment(id as string)
 
-  if (!result) return res.status(401).json({ message: 'Article not found' })
+  if (!result) return res.status(401).json({ message: 'Recruitment not found' })
   return res.json({ data: result })
 }
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
-  const { title, content }: Partial<Article> = req.body
+  const updateData: FormRecruitment = req.body
   console.log(req.body)
   const { id } = req.query
-  const checkArticle = await prisma.article.findUnique({
+  const isExist = await prisma.recruitment.findUnique({
     where: { id: Number(id) }
   })
 
-  if (!checkArticle) return res.status(401).json({ message: 'Article not found' })
-  const updateData = { title, content }
+  if (!isExist) return res.status(401).json({ message: 'Recruitment not found' })
+  // const updateData = { title, content }
 
-  const updateUser = await prisma.article.update({
+  const updateUser = await prisma.recruitment.update({
     where: {
       id: Number(id)
     },
@@ -51,10 +52,10 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
   })
   return res.json({ data: updateUser, message: 'update successfully' })
 }
-export async function getArticle(id: TypeId) {
-  const checkArticle = await prisma.article.findUnique({
+export async function getRecruitment(id: TypeId) {
+  const recruitment = await prisma.recruitment.findUnique({
     where: { id: Number(id) }
   })
-  if (!checkArticle) return null
-  return checkArticle
+  if (!recruitment) return null
+  return recruitment
 }

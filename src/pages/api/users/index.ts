@@ -1,13 +1,13 @@
 import * as _ from 'lodash'
-import { User as TypeUser } from '@prisma/client'
-import prisma, { prisma } from '../../../lib/prisma'
+import { Role, User as TypeUser } from '@prisma/client'
+import { prisma } from '../../../lib/prisma'
 
 // import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { QueryParams } from '@/types'
 import { hash } from 'bcryptjs'
-import { getSession } from 'next-auth/react'
-import { getToken } from 'next-auth/jwt'
+import { getToken, JWT } from 'next-auth/jwt'
+import { stripUndefined } from '@/utils/stripUndefined'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -65,7 +65,18 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const { name, username, role }: TypeUser = req.body
+  const token: JWT | null = await getToken({
+    req,
+    secret: process.env.NEXT_AUTH_SECRET
+  })
+  console.log('token', token)
+  if (!token) return res.status(401).json({ message: 'Unauthorized' })
+
+  if (token.role !== Role.ADMIN) {
+    return res.status(401).json({ message: 'Forbidden' })
+  }
+
+  const { name, username, role }: TypeUser = stripUndefined(req.body)
   const checkUser = await prisma.user.findUnique({
     where: { username }
   })

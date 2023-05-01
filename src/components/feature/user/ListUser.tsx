@@ -1,7 +1,7 @@
 import { useControlPopup } from '@/components/hooks'
 import { AddIcon } from '@/components/icon'
 import { userService } from '@/service/users.service'
-import { FormUser, QueryParams } from '@/types'
+import { FormUser, QueryParams, TApiResponseError } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { FormSearch } from '@/ui/molecules'
 import { AddUserForm, TableUser } from '@/ui/organisms'
@@ -13,7 +13,10 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 type Props = {}
-
+type TResponseGetUsers = {
+  data: User[]
+  total: number
+}
 const LIMIT = 5
 const ListUser = (props: Props) => {
   const [page, setPage] = useState(1)
@@ -38,20 +41,21 @@ const ListUser = (props: Props) => {
     },
     onSuccess(data) {
       const newUserData = data?.data.data || {}
-      queryClient.setQueryData(['users', params], (oldData) => {
-        const users = oldData?.data
+      queryClient.setQueryData(['users', params], (oldData: TResponseGetUsers | undefined) => {
+        const users = oldData?.data || []
         // console.log('users', users)
         const adjustedData = users.map((user: User) =>
           user.id === newUserData.id ? newUserData : user
         )
+        const total = oldData?.total || 0
         return {
           data: adjustedData,
-          total: oldData?.total
+          total: total
         }
       })
       toast.success(data.data?.message || 'success')
     },
-    onError(data) {
+    onError(data: TApiResponseError) {
       toast.error(data?.response?.data?.message || 'error')
     }
   })

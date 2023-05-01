@@ -1,6 +1,6 @@
 import { SearchIcon } from '@/components/icon'
 import { ButtonOutline } from '@/ui/atom'
-import { Stack, StackProps } from '@mui/material'
+import { InputBase, Stack, StackProps } from '@mui/material'
 import React from 'react'
 
 type Props = {
@@ -11,11 +11,11 @@ const FormSearch = (props: Props) => {
   const { placeholder = 'Search everything' } = props
   return (
     <Stack alignItems={'center'} direction={'row'} {...props}>
-      <input
-        placeholder={placeholder}
-        className='pr-8 bg-transparent text-gray-500 outline-none py-2 border-b-2 border-b-black focus:border-b-2 focus:border-b-blue-500'
+      <InputBase
+        className='pl-3 bg-transparent text-gray-500 outline-none py-2 border-b-2 border-b-black focus-within:border-b-2 focus-within:border-b-blue-500'
+        placeholder='Search...'
+        endAdornment={<SearchIcon sx={{ ml: 1, cursor: 'pointer' }} />}
       />
-      <SearchIcon />
     </Stack>
   )
 }

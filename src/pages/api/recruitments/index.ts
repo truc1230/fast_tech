@@ -1,12 +1,9 @@
-import * as _ from 'lodash'
-import { Article as TArticle } from '@prisma/client'
-import { prisma } from '../../../lib/prisma'
+import { Recruitment } from '@prisma/client'
 
-// import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { QueryParams } from '@/types'
-import { getSession } from 'next-auth/react'
 import { getToken } from 'next-auth/jwt'
+import prisma from '@/lib/prisma'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -22,8 +19,8 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   try {
     console.log(req.query)
-    const params: QueryParams<TArticle> = req.query
-    const { data, total } = await getArticles(params)
+    const params: QueryParams<Recruitment> = req.query
+    const { data, total } = await getRecruitmentList(params)
 
     res.status(200).json({ data, total })
   } catch (error) {
@@ -33,15 +30,17 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const { content, title }: TArticle = req.body
+  const { title, minSalary, maxSalary, location, amount }: Omit<Recruitment, 'id'> = req.body
   const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
-  console.log('token', token)
   if (token) {
-    const result = await prisma.article.create({
+    if (minSalary > maxSalary || amount < 0) return res.status(400).json({ message: 'Bad request' })
+    const result = await prisma.recruitment.create({
       data: {
-        title: title,
-        content: content,
-        authorId: Number(token.email as string)
+        title,
+        minSalary: +minSalary,
+        maxSalary: +maxSalary,
+        location,
+        amount: +amount
       }
     })
     return res.json({ data: result, message: 'create successfully' })
@@ -50,17 +49,14 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export async function getArticles(params: QueryParams<TArticle>) {
-  // const response = await fetch(/* external API endpoint */)
-  // const jsonData = await response.json()
-  // return jsonData
+export async function getRecruitmentList(params: QueryParams<Recruitment>) {
   const {
     limit = 10,
     page = 1,
     order = 'id',
     by = 'asc',
     textSearch
-  }: QueryParams<TArticle> = params
+  }: QueryParams<Recruitment> = params
   const offset = (page - 1) * limit
   let where = {}
   if (textSearch) {
@@ -79,25 +75,16 @@ export async function getArticles(params: QueryParams<TArticle>) {
     //   ]
     // }
   }
-  const articles = await prisma.article.findMany({
+  const recruitmentList = await prisma.recruitment.findMany({
     where,
     orderBy: {
       [order]: by
-    },
-    include: {
-      author: {
-        select: {
-          id: true,
-          name: true
-          // image: true
-        }
-      }
     },
     take: Number(limit),
     skip: offset
   })
   return {
-    data: articles,
-    total: await prisma.article.count({ where })
+    data: recruitmentList,
+    total: await prisma.recruitment.count({ where })
   }
 }

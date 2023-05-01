@@ -5,7 +5,8 @@ import TableUser from './TableUser'
 import TableArticle from './TableArticle'
 import AddUserForm from './AddUserForm'
 import ContactForm from './ContactForm'
-import Editor from './Editor'
+import EditorArticle from './EditorArticle'
+import EditorRecruitment from './EditorRecruitment'
 
 export {
   ListArticles,
@@ -15,5 +16,6 @@ export {
   AddUserForm,
   ContactForm,
   TableArticle,
-  Editor
+  EditorArticle,
+  EditorRecruitment
 }

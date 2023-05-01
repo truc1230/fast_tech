@@ -65,7 +65,7 @@ const AddUserForm = (props: Props) => {
                 errors.name
                   ? typeof errors.name === 'string'
                     ? errors.name
-                    : errors.name?.message.toString()
+                    : errors.name.message?.toString() || ''
                   : ''
               }
             />
@@ -81,7 +81,7 @@ const AddUserForm = (props: Props) => {
                 errors.username
                   ? typeof errors.username === 'string'
                     ? errors.username
-                    : errors.username?.message.toString()
+                    : errors.username.message?.toString() || ''
                   : ''
               }
             />
@@ -90,7 +90,7 @@ const AddUserForm = (props: Props) => {
               <FormControlLabel value='ADMIN' control={<Radio />} label='Admin' />
               <FormControlLabel value='USER' control={<Radio />} label='User' />
             </RadioGroup>
-            {errors.role && <span className='text-red-500 text-sm'>{errors.role?.message}</span>}
+            {errors.role && <span className='text-red-500 text-sm'>{errors.role?.message?.toString()}</span>}
           </DialogContent>
           <DialogActions>
             <Button

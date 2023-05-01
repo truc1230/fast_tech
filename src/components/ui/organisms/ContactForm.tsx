@@ -2,12 +2,20 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { TextField, Grid, Typography, TextareaAutosize } from '@mui/material'
 import { ButtonNavbar, FieldSelect } from '@/ui/atom'
 import { useForm } from 'react-hook-form'
+import { emailService } from '@/service'
+import { ETypeSendMail } from '@/types'
 
 export default function ContactForm() {
   const { register, handleSubmit } = useForm()
   const onSubmit = (data: any) => {
     console.log(data)
     // send data to server here
+    const content = {
+      ...data,
+      subject: 'Contact From Customer',
+      type: ETypeSendMail.contact
+    }
+    emailService.send(content)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +50,7 @@ export default function ContactForm() {
           <Typography variant='h6'>Yêu cầu của bạn</Typography>
           <TextareaAutosize
             placeholder='Viết gì đó vào đây'
-            id='message'
+            id='request'
             style={{
               width: '100%',
               resize: 'none',
@@ -51,7 +59,7 @@ export default function ContactForm() {
               borderBottom: '1px solid black'
             }}
             className='border-b border-gray-400 hover:border-blue-500 hover:outline-none'
-            {...register('message', { required: true })}
+            {...register('request', { required: true })}
             minRows={4}
           />
         </Grid>
