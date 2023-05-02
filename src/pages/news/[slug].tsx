@@ -1,4 +1,4 @@
-import { getArticles } from '@/pages/api/articles'
+import { getArticleBySlug, getArticles } from '@/pages/api/articles'
 import { getArticle, handleGET } from '@/pages/api/articles/[id]'
 import { articleService } from '@/service'
 import { TArticleWithAuthor, TypeId } from '@/types'
@@ -33,18 +33,18 @@ export async function getStaticPaths() {
   })
 
   const paths = res.data.map((item: TArticleWithAuthor) => ({
-    params: { id: item.id.toString() }
+    params: { slug: item.slug }
   }))
   return { paths, fallback: true }
 }
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  if (!params || !params.id) {
+  if (!params || !params.slug) {
     return {
       notFound: true
     }
   }
   // const res = await articleService.get(params.id as string)
-  const result = await getArticle(params.id as TypeId)
+  const result = await getArticleBySlug(params.slug as string)
   if (!result)
     return {
       notFound: true

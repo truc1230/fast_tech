@@ -7,6 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { QueryParams } from '@/types'
 import { getSession } from 'next-auth/react'
 import { getToken } from 'next-auth/jwt'
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -33,7 +34,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const { content, title }: TArticle = req.body
+  const { content, title, slug }: TArticle = req.body
   const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
   console.log('token', token)
   if (token) {
@@ -41,6 +42,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
       data: {
         title: title,
         content: content,
+        slug: slug || _.kebabCase(removeVietnameseTones(title)),
         authorId: Number(token.email as string)
       }
     })
@@ -100,4 +102,12 @@ export async function getArticles(params: QueryParams<TArticle>) {
     data: articles,
     total: await prisma.article.count({ where })
   }
+}
+export async function getArticleBySlug(slug: string) {
+  if (_.isEmpty(slug)) return null
+  const checkArticle = await prisma.article.findMany({
+    where: { slug }
+  })
+  if (_.isEmpty(checkArticle)) return null
+  return checkArticle[0]
 }

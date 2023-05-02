@@ -1,8 +1,10 @@
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
 // import prisma from '@/lib/prisma'
 import prisma from '@/lib/prisma'
 import { FormUser, TypeId } from '@/types'
 import { Article } from '@prisma/client'
 import { hash } from 'bcryptjs'
+import _ from 'lodash'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
@@ -33,7 +35,7 @@ export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   return res.json({ data: result })
 }
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
-  const { title, content }: Partial<Article> = req.body
+  const { title, content, slug = '' }: Partial<Article> = req.body
   console.log(req.body)
   const { id } = req.query
   const checkArticle = await prisma.article.findUnique({
@@ -41,7 +43,11 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
   })
 
   if (!checkArticle) return res.status(401).json({ message: 'Article not found' })
-  const updateData = { title, content }
+  const updateData = {
+    title,
+    content,
+    slug: _.kebabCase(removeVietnameseTones(slug as string)) || _.kebabCase(removeVietnameseTones(title as string))
+  }
 
   const updateUser = await prisma.article.update({
     where: {
