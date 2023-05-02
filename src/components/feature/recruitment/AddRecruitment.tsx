@@ -24,6 +24,8 @@ const AddRecruitment = (props: Props) => {
   const { mutate, mutateAsync, error } = useMutation({
     mutationFn: (body: FormRecruitment) => {
       // const id = body.id
+      console.log(body)
+
       if (id) return recruitmentService.update(Number(id), body)
       else return recruitmentService.create(body)
     },

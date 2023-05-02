@@ -1,3 +1,4 @@
+import { getArticles } from '@/pages/api/articles'
 import { articleService } from '@/service'
 import { Article, FormSearch, Panel } from '@/ui/molecules'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
@@ -6,7 +7,6 @@ import { Article as TArticles } from '@prisma/client'
 import React from 'react'
 
 type Props = {
-  title: string
   articles: TArticles[]
 }
 type CategoryType = {
@@ -33,11 +33,10 @@ const categories: CategoryType[] = [
 ]
 // const articles = [{}]
 const index = (props: Props) => {
-  const { title, articles } = props
+  const { articles } = props
   console.log(articles)
   return (
     <DefaultLayout>
-      <Typography>{title}</Typography>
       <Panel
         title='Our thinking is where you can source'
         content='thought leadership articles, case studies, success stories, insights and other useful resources.'
@@ -60,33 +59,6 @@ const index = (props: Props) => {
             <Article data={item} />
           </Grid>
         ))}
-        {/* <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid> */}
       </Grid>
     </DefaultLayout>
   )
@@ -95,11 +67,12 @@ const index = (props: Props) => {
 export default index
 
 export async function getStaticProps() {
-  const res = await articleService.getAll()
+  const res = await getArticles({
+    limit: 100
+  })
   return {
     props: {
-      title: 'Home page',
-      articles: res.data
+      articles: JSON.parse(JSON.stringify(res.data))
     }
   }
 }
