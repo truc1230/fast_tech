@@ -43,8 +43,7 @@ function EditorArticle(props: Props) {
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack>
-          <Stack direction={'row'} paddingY={'10px'} justifyContent={'space-between'}>
-            <Typography variant='h5'>Title</Typography>
+          <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
             <Stack direction={'row'} spacing={4}>
               <ButtonNavbar
                 onClick={() => {
@@ -67,6 +66,7 @@ function EditorArticle(props: Props) {
               </ButtonNavbar>
             </Stack>
           </Stack>
+          <Typography fontWeight={700}>Title</Typography>
           <Controller
             name='title'
             control={control}
@@ -74,6 +74,7 @@ function EditorArticle(props: Props) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
+                margin={'normal'}
                 {...field}
                 fullWidth
                 error={!!errors.title}
@@ -81,7 +82,26 @@ function EditorArticle(props: Props) {
               />
             )}
           />
-          <Typography variant='h5'>Content</Typography>
+
+          <Typography fontWeight={700}>Slug</Typography>
+          <Typography fontSize={12} fontWeight={300} variant='caption'>
+            blank for the default value
+          </Typography>
+          <Controller
+            name='slug'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextField
+                margin={'normal'}
+                placeholder=' This is path for news, default: /this-is-title-news'
+                {...field}
+                fullWidth
+              />
+            )}
+          />
+          <Typography variant='body2'></Typography>
+          <Typography fontWeight={700}>Content</Typography>
           <Controller
             name='content'
             control={control}
