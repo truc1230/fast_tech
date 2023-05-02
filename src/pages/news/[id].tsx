@@ -29,7 +29,7 @@ const DetailNews = (props: Props) => {
 export default DetailNews
 export async function getStaticPaths() {
   const res = await getArticles({
-    limit: 20
+    limit: 100
   })
 
   const paths = res.data.map((item: TArticleWithAuthor) => ({

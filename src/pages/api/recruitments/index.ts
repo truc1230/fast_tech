@@ -30,7 +30,8 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const { title, minSalary, maxSalary, location, amount }: Omit<Recruitment, 'id'> = req.body
+  const { title, minSalary, maxSalary, location, amount, requirement }: Omit<Recruitment, 'id'> =
+    req.body
   const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
   if (token) {
     if (minSalary > maxSalary || amount < 0) return res.status(400).json({ message: 'Bad request' })
@@ -40,6 +41,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
         minSalary: +minSalary,
         maxSalary: +maxSalary,
         location,
+        requirement,
         amount: +amount
       }
     })
