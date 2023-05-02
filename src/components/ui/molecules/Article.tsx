@@ -12,7 +12,7 @@ type Props = {
 export default function Article(props: Props) {
   const { data } = props
   return (
-    <Link href={`/news/${data?.id}`}>
+    <Link href={`/news/${data?.slug}`}>
       <Stack spacing={4} className='hover:text-purple-400'>
         <Image
           width=''

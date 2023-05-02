@@ -4,6 +4,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { QueryParams } from '@/types'
 import { getToken } from 'next-auth/jwt'
 import prisma from '@/lib/prisma'
+import _ from 'lodash'
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -30,8 +32,15 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const { title, minSalary, maxSalary, location, amount, requirement }: Omit<Recruitment, 'id'> =
-    req.body
+  const {
+    title,
+    minSalary,
+    maxSalary,
+    location,
+    amount,
+    requirement,
+    slug
+  }: Omit<Recruitment, 'id'> = req.body
   const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
   if (token) {
     if (minSalary > maxSalary || amount < 0) return res.status(400).json({ message: 'Bad request' })
@@ -42,6 +51,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
         maxSalary: +maxSalary,
         location,
         requirement,
+        slug: slug || _.kebabCase(removeVietnameseTones(title)),
         amount: +amount
       }
     })
