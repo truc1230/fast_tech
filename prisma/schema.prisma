@@ -24,6 +24,7 @@ model Article {
   title     String   @db.VarChar(255)
   content   String?
   authorId  Int
+  slug      String   @db.VarChar(255)
   author    User     @relation(fields: [authorId], references: [id])
 }
 
@@ -37,6 +38,7 @@ model Recruitment {
   maxSalary   Int
   location    String
   amount      Int      @default(0)
+  slug        String   @db.VarChar(255)
 }
 
 enum Role {
