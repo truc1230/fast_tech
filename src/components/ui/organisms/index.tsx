@@ -7,6 +7,8 @@ import AddUserForm from './AddUserForm'
 import ContactForm from './ContactForm'
 import EditorArticle from './EditorArticle'
 import EditorRecruitment from './EditorRecruitment'
+import RecruitmentList from './RecruitmentList'
+import DetailRecruitment from './DetailRecruitment'
 
 export {
   ListArticles,
@@ -17,5 +19,7 @@ export {
   ContactForm,
   TableArticle,
   EditorArticle,
-  EditorRecruitment
+  EditorRecruitment,
+  RecruitmentList,
+  DetailRecruitment
 }

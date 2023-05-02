@@ -26,8 +26,9 @@ const Solution = (props: Props) => {
         ':hover': {
           border: '3px solid',
           borderImage: 'linear-gradient(to right, red, purple)',
-          borderImageSlice: 1
-        },
+          borderImageSlice: 1,
+          cursor: 'pointer'
+        }
       }}
     >
       <Stack paddingBottom={3} spacing={4} direction={'row'} alignItems={'center'}>

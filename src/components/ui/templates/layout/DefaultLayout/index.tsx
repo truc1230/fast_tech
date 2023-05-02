@@ -12,7 +12,7 @@ export default function DefaultLayout(props: IDefaultLayoutProps) {
   return (
     <Stack justifyContent={'center'} alignItems='center'>
       <Navbar />
-      <Box className='min-h-[1000px] mt-20 max-w-[1000px]'>{props.children}</Box>
+      <Box className='w-full min-h-[1000px] mt-20  pt-10 px-8'>{props.children}</Box>
       <Footer />
     </Stack>
   )

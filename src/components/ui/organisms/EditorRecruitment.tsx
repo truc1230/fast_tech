@@ -23,7 +23,6 @@ function EditorRecruitment(props: Props) {
   }, [recruitment])
 
   const router = useRouter()
-  console.log('recruitment', recruitment)
   const {
     control,
     handleSubmit,
