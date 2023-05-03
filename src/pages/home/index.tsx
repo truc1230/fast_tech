@@ -1,5 +1,4 @@
-import prisma from '@/lib/prisma'
-import { Panel, Solution } from '@/ui/molecules/'
+import { Panel } from '@/ui/molecules/'
 import { ListArticles, OurSolutions } from '@/ui/organisms'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
 import { Box, Typography } from '@mui/material'
@@ -40,7 +39,7 @@ export default function index(props: Props) {
 
 // export async function getServerSideProps() {
 //   const users = await prisma.article.findMany()
-  
+
 //   return {
 //     props: {
 //       title: 'Home page',
