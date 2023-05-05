@@ -31,7 +31,7 @@ model Article {
 model Solution {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(255)
-  description String   @db.VarChar(255)
+  description String   @db.VarChar(1024)
   content     String?
   image       String?
   slug        String   @db.VarChar(255)
