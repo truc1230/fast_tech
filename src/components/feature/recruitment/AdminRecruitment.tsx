@@ -1,5 +1,5 @@
 import { AddIcon } from '@/components/icon'
-import {  recruitmentService } from '@/service'
+import { recruitmentService } from '@/service'
 import { QueryParams } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { FormSearch } from '@/ui/molecules'
@@ -23,7 +23,6 @@ const AdminRecruitment = (props: Props) => {
     queryKey: ['recruitments', params],
     queryFn: () => recruitmentService.getAll(params)
   })
-  console.log(data)
   return (
     <AdminLayout>
       {isLoading ? (
@@ -48,9 +47,6 @@ const AdminRecruitment = (props: Props) => {
             params={params}
             setPage={setPage}
             total={data?.total}
-            // handleOpen={function (): void {
-            //   throw new Error('Function not implemented.')
-            // }}
             onSubmit={function (data: Partial<User>): void {
               throw new Error('Function not implemented.')
             }}

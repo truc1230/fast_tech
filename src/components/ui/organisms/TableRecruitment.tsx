@@ -17,6 +17,7 @@ import { FormUser, QueryParams, TArticleWithAuthor } from '@/types'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
+import { formatVND } from '@/utils/formatCurrency'
 
 type Props = {
   data: Recruitment[]
@@ -76,6 +77,7 @@ export default function TableRecruitment(props: Props) {
             <TableCell align='center'>Min Salary</TableCell>
             <TableCell align='center'>Max Salary</TableCell>
             <TableCell align='center'>Amount</TableCell>
+            <TableCell align='center'>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,8 +87,8 @@ export default function TableRecruitment(props: Props) {
                 {row.id}
               </TableCell>
               <TableCell align='center'>{row.title}</TableCell>
-              <TableCell align='center'>{row.minSalary}</TableCell>
-              <TableCell align='center'>{row.maxSalary}</TableCell>
+              <TableCell align='center'>{formatVND(row.minSalary)}</TableCell>
+              <TableCell align='center'>{formatVND(row.maxSalary)}</TableCell>
               <TableCell align='center'>{row.amount}</TableCell>
               <TableCell align='center'>{renderDetailsButton(row)}</TableCell>
             </TableRow>
