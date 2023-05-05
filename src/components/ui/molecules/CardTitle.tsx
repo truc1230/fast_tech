@@ -13,7 +13,12 @@ export default function CardTitle(props: Props) {
   const { title, description, image, ...rest } = props
 
   return (
-    <Stack direction={'column'}>
+    <Stack
+      direction={'column'}
+      sx={{
+        backgroundColor: '#f5f6f8 '
+      }}
+    >
       <Box
         position={'relative'}
         display={'block'}
@@ -30,15 +35,18 @@ export default function CardTitle(props: Props) {
       >
         <Box
           position={'absolute'}
-          bottom={0}
-          left={'50%'}
           paddingX={7}
-          paddingTop={7}
+          paddingY={3}
           textAlign={'center'}
-          sx={{ backgroundColor: 'white', transform: 'translateY(20%) translateX(-50%)' }}
+          sx={{
+            backgroundColor: '#f5f6f7',
+            transform: 'translateY(20%)  ',
+            inset: '70% 10% auto 10%'
+          }}
         >
           <Typography
             variant='h4'
+            display={'inline'}
             fontWeight={700}
             fontSize={'clamp(1.25rem,calc(1.25rem + 1.5vw), 2.5rem)'}
             sx={{
@@ -52,7 +60,7 @@ export default function CardTitle(props: Props) {
           </Typography>
         </Box>
       </Box>
-      <Box className='pt-11 md:p-10'>
+      <Box className='pt-11 px-5 pb-14 md:px-20'>
         <Typography textAlign={'center'} variant='body2'>
           {description ||
             `

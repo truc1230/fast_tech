@@ -4,9 +4,9 @@ import SearchIcon from '@mui/icons-material/Search'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import Person from '@mui/icons-material/Person'
-import Description from '@mui/icons-material/Description'
-import DashboardIcon from '@mui/icons-material/Dashboard'
+import Person from '@mui/icons-material/PersonOutline'
+import Description from '@mui/icons-material/DescriptionOutlined'
+import DashboardIcon from '@mui/icons-material/DashboardOutlined'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DeleteIcon from '@mui/icons-material/Delete'
 import NoAccountsIcon from '@mui/icons-material/NoAccounts'
@@ -16,6 +16,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import AddIcon from '@mui/icons-material/Add'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined'
 export {
   ArrowForwardIcon,
   KeyboardArrowDownIcon,
@@ -34,5 +36,7 @@ export {
   EditIcon,
   RestartAltIcon,
   AddIcon,
-  WorkOutlineIcon
+  WorkOutlineIcon,
+  EmojiObjectsOutlinedIcon,
+  ArrowForwardOutlinedIcon
 }

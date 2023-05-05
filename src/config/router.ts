@@ -1,4 +1,11 @@
-import { DashboardIcon, Description, LogoutIcon, Person, WorkOutlineIcon } from '@/components/icon'
+import {
+  DashboardIcon,
+  Description,
+  EmojiObjectsOutlinedIcon,
+  LogoutIcon,
+  Person,
+  WorkOutlineIcon
+} from '@/components/icon'
 
 export const adminRoutes = [
   {
@@ -20,6 +27,11 @@ export const adminRoutes = [
     title: 'Recruitment',
     icon: WorkOutlineIcon,
     to: '/admin/recruitment'
+  },
+  {
+    title: 'Solution',
+    icon: EmojiObjectsOutlinedIcon,
+    to: '/admin/solution'
   }
 ]
 

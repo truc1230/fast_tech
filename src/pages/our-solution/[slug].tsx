@@ -1,10 +1,12 @@
 import { getSolutionBySlug, getSolutions } from '@/pages/api/solutions'
 import { CardTitle } from '@/ui/molecules'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
-import { Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { Solution } from '@prisma/client'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { ArrowBackIcon, ArrowForwardIcon } from '@/components/icon'
 
 type Props = {
   data: Solution
@@ -27,9 +29,18 @@ const DetailSolution = (props: Props) => {
       <Typography
         paddingX={10}
         paddingY={8}
+        className='py-8 px-4 md:px-20'
         variant='body1'
         dangerouslySetInnerHTML={{ __html: data?.content as string }}
       ></Typography>
+      <Box display={'flex'} padding={12}>
+        <Link href={'/our-solution'}>
+          <Button>
+            <ArrowBackIcon />
+            See all solutions
+          </Button>
+        </Link>
+      </Box>
     </DefaultLayout>
   )
 }

@@ -41,7 +41,7 @@ export default function Panel(props: IPanelProps) {
         <Typography
           fontWeight={700}
           lineHeight={'1.875rem'}
-          fontSize={'clamp(1.25rem,calc(1.25rem + 1.5vw), 2.5rem)'}
+          fontSize={'clamp(1.25rem,calc(1rem + 1.5vw), 2.5rem)'}
           variant='h4'
           color={'primary.main'}
         >
@@ -50,7 +50,7 @@ export default function Panel(props: IPanelProps) {
         <Typography
           variant='h4'
           fontWeight={700}
-          fontSize={'clamp(1.25rem,calc(1.25rem + 1.5vw), 2.5rem)'}
+          fontSize={'clamp(1.25rem,calc(1rem + 1.5vw), 2.5rem)'}
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
             WebkitBackgroundClip: 'text',
