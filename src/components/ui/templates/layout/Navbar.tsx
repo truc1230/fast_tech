@@ -74,11 +74,12 @@ function Navbar() {
       alignItems='center'
       justifyContent={'space-between'}
     >
-      <Link href={'/home'} passHref className='hover:'>
+      <Link href={'/home'} passHref>
         <Typography
           variant='h4'
           fontWeight={700}
           fontSize={'36px'}
+          
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
             WebkitBackgroundClip: 'text',

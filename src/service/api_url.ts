@@ -6,3 +6,4 @@ export const API_URL = {
 export const URL_USERS = '/users/'
 export const URL_ARTICLES = '/articles/'
 export const URL_RECRUITMENTS = '/recruitments/'
+export const URL_SOLUTION = '/solutions/'

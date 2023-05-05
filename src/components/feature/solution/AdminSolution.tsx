@@ -1,53 +1,54 @@
 import { AddIcon } from '@/components/icon'
-import { recruitmentService } from '@/service'
+import { solutionService } from '@/service'
 import { QueryParams } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { FormSearch } from '@/ui/molecules'
-import TableRecruitment from '@/ui/organisms/TableRecruitment'
+import { TableSolution } from '@/ui/organisms'
 import AdminLayout from '@/ui/templates/layout/AdminLayout'
-import { Skeleton, Stack } from '@mui/material'
-import { Recruitment, User } from '@prisma/client'
+import { Box, Skeleton, Stack } from '@mui/material'
+import { Solution as TSolution } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import React, { useState } from 'react'
 const LIMIT = 5
 
 type Props = {}
-const AdminRecruitment = (props: Props) => {
+const AdminSolution = (props: Props) => {
   const [page, setPage] = useState(1)
-  const params: QueryParams<Recruitment> = {
+  const params: QueryParams<TSolution> = {
     page,
     limit: LIMIT
   }
   const { data, isLoading } = useQuery({
-    queryKey: ['recruitments', params],
-    queryFn: () => recruitmentService.getAll(params)
+    queryKey: ['solutions', params],
+    queryFn: () => solutionService.getAll(params)
   })
+  console.log(data)
   return (
     <AdminLayout>
       {isLoading ? (
-        <>
+        <Box padding={'10px'}>
           <Skeleton animation='wave' height={'10%'} />
           <Skeleton animation='wave' height={'10%'} />
           <Skeleton animation='wave' height={'10%'} />
-        </>
+        </Box>
       ) : (
         <>
           <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
             <FormSearch />
-            <Link href={'/admin/recruitment/add'}>
+            <Link href={'/admin/solution/add'}>
               <ButtonNavbar>
                 <AddIcon />
-                Add Recruitment
+                Add Solution
               </ButtonNavbar>
             </Link>
           </Stack>
-          <TableRecruitment
+          <TableSolution
             data={data?.data}
             params={params}
             setPage={setPage}
             total={data?.total}
-            onSubmit={function (data: Partial<User>): void {
+            onSubmit={function (data: Partial<TSolution>): void {
               throw new Error('Function not implemented.')
             }}
           />
@@ -57,4 +58,4 @@ const AdminRecruitment = (props: Props) => {
   )
 }
 
-export default AdminRecruitment
+export default AdminSolution

@@ -1,4 +1,11 @@
-import { DashboardIcon, Description, LogoutIcon, Person, WorkOutlineIcon } from '@/components/icon'
+import {
+  DashboardIcon,
+  Description,
+  EmojiObjectsOutlinedIcon,
+  LogoutIcon,
+  Person,
+  WorkOutlineIcon
+} from '@/components/icon'
 
 export const adminRoutes = [
   {
@@ -20,20 +27,31 @@ export const adminRoutes = [
     title: 'Recruitment',
     icon: WorkOutlineIcon,
     to: '/admin/recruitment'
+  },
+  {
+    title: 'Solution',
+    icon: EmojiObjectsOutlinedIcon,
+    to: '/admin/solution'
   }
 ]
 
 export const guestRouter = [
   {
-    title: 'About Us',
-    icon: DashboardIcon,
-    to: '/about'
+    title: 'Our Solution',
+    icon: Description,
+    to: '/our-solution'
   },
   {
     title: 'News',
     icon: Person,
     to: '/news'
   },
+  {
+    title: 'About Us',
+    icon: DashboardIcon,
+    to: '/about'
+  },
+
   {
     title: 'Recruitment',
     icon: Description,
