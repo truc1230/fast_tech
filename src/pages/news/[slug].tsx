@@ -1,10 +1,13 @@
+import { ArrowBackIcon } from '@/components/icon'
 import { getArticleBySlug, getArticles } from '@/pages/api/articles'
-import { getArticle, handleGET } from '@/pages/api/articles/[id]'
-import { articleService } from '@/service'
 import { TArticleWithAuthor, TypeId } from '@/types'
+import { Panel } from '@/ui/molecules'
+import { ListArticles } from '@/ui/organisms'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
+import { Box, Button } from '@mui/material'
 import { Article } from '@prisma/client'
 import { GetStaticProps } from 'next'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 type Props = {
@@ -22,6 +25,22 @@ const DetailNews = (props: Props) => {
           __html: data?.content as string
         }}
       ></div>
+      <Box display={'flex'} padding={5}>
+        <Link href={'/news'}>
+          <Button>
+            <ArrowBackIcon />
+            See all news
+          </Button>
+        </Link>
+      </Box>
+      <ListArticles title='Latest Articles' />
+      <Panel
+        title='A global network of nearshore and offshore centres'
+        content='Developing leading technology solutions'
+        center={true}
+        minHeight={'30vh'}
+        maxHeight={'50vh'}
+      />
     </DefaultLayout>
   )
 }

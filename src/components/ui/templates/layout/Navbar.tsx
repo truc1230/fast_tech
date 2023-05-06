@@ -1,13 +1,13 @@
-import { IconButton, Stack, MenuItem, Typography } from '@mui/material'
+import { IconButton, Typography, Stack } from '@mui/material'
 
-import { KeyboardArrowDownIcon, SearchIcon } from '@/components/icon'
+import { SearchIcon } from '@/components/icon'
 import { ButtonNavbar } from '@/ui/atom'
 import { SectionButtonNavbar } from '@/ui/organisms'
 import Link from 'next/link'
-import ContactForm from '@/ui/organisms/ContactForm'
+import { ContactForm } from '@/ui/organisms'
 import React from 'react'
 import { Modal } from '@/ui/molecules'
-import { guestRouter } from '@/config'
+import { MenuNavbar } from '@/ui/molecules/'
 
 export const MENU_ITEMS = [
   {
@@ -79,7 +79,6 @@ function Navbar() {
           variant='h4'
           fontWeight={700}
           fontSize={'36px'}
-          
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
             WebkitBackgroundClip: 'text',
@@ -91,13 +90,14 @@ function Navbar() {
         </Typography>
       </Link>
 
-      <Stack direction={'row'} justifyContent='space-around' spacing={4}>
-        {guestRouter.map((item) => (
-          <Link key={item.to} href={item.to}>
-            <MenuItem>{item.title}</MenuItem>
-          </Link>
-        ))}
-        {/* Old menu item */}
+      <Stack
+        direction={'row'}
+        // flexWrap={'wrap'}
+        className='lg:flex-row-reverse'
+        justifyContent='space-around'
+        spacing={4}
+      >
+        {/*  Old menu item */}
         {/* <Stack direction={'row'} justifyContent='space-around' spacing={4}>
         {MENU_ITEMS.map((item, idx) => (
           <SectionButtonNavbar
@@ -113,7 +113,9 @@ function Navbar() {
           <SearchIcon />
         </IconButton>
         <ButtonNavbar onClick={handleOpen}>Get in touch</ButtonNavbar>
+        <MenuNavbar />
       </Stack>
+
       <Modal onClose={handleClose} children={<ContactForm />} open={open} width={6 / 8} />
     </Stack>
   )

@@ -18,6 +18,7 @@ import AddIcon from '@mui/icons-material/Add'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined'
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 export {
   ArrowForwardIcon,
   KeyboardArrowDownIcon,
@@ -38,5 +39,6 @@ export {
   AddIcon,
   WorkOutlineIcon,
   EmojiObjectsOutlinedIcon,
-  ArrowForwardOutlinedIcon
+  ArrowForwardOutlinedIcon,
+  MenuOutlinedIcon
 }

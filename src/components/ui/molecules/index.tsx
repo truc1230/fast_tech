@@ -8,6 +8,7 @@ import Modal from '@/ui/molecules/Modal'
 import FormSearch from '@/ui/molecules/FormSearch'
 import QuillEditor from '@/ui/molecules/QuillEditor'
 import CardTitle from '@/ui/molecules/CardTitle'
+import MenuNavbar from '@/ui/molecules/MenuNavbar'
 export {
   Article,
   FormRegister,
@@ -18,5 +19,6 @@ export {
   FormSearch,
   MenuItemIcon,
   QuillEditor,
-  CardTitle
+  CardTitle,
+  MenuNavbar
 }

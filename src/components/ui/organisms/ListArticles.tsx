@@ -12,14 +12,14 @@ export default function ListArticles(props: IListArticlesProps) {
   return (
     <Box padding={8}>
       <Typography variant='h4'>{title}</Typography>
-      <Grid container spacing={8}>
-        <Grid item md={4}>
+      <Grid container spacing={5}>
+        <Grid item xs={12} sm={4}>
           <Article />
         </Grid>
-        <Grid item md={4}>
+        <Grid item xs={12} sm={4}>
           <Article />
         </Grid>
-        <Grid item md={4}>
+        <Grid item xs={12} sm={4}>
           <Article />
         </Grid>
       </Grid>
