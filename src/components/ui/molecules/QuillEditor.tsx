@@ -43,7 +43,7 @@ function QuillEditor(props: Props) {
       theme='snow'
       modules={modules}
       formats={formats}
-      style={{ height: '600px' }}
+      style={{ height: '50vh' }}
     />
   )
 }

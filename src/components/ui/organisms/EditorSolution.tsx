@@ -39,7 +39,6 @@ function EditorSolution(props: Props) {
   }
 
   return (
-    <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack>
           <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
@@ -128,14 +127,9 @@ function EditorSolution(props: Props) {
           )} */}
         </Stack>
       </form>
-    </Container>
   )
 }
 
-const Container = styled.div`
-  height: 95%;
-  overflow: auto;
-  padding: 20px 13px 0;
-`
+
 
 export default EditorSolution

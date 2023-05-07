@@ -39,136 +39,128 @@ function EditorRecruitment(props: Props) {
   }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack>
-          <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
-            <Stack direction={'row'} spacing={4}>
-              <ButtonNavbar
-                onClick={() => {
-                  router.push('/admin/recruitment', undefined, {
-                    shallow: true
-                  })
-                }}
-              >
-                <ArrowBackIcon />
-                Back
-              </ButtonNavbar>
-              <ButtonNavbar
-                sx={{
-                  backgroundColor: 'primary'
-                }}
-                variant='contained'
-                type='submit'
-              >
-                Save
-              </ButtonNavbar>
-            </Stack>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack>
+        <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
+          <Stack direction={'row'} spacing={4}>
+            <ButtonNavbar
+              onClick={() => {
+                router.push('/admin/recruitment', undefined, {
+                  shallow: true
+                })
+              }}
+            >
+              <ArrowBackIcon />
+              Back
+            </ButtonNavbar>
+            <ButtonNavbar
+              sx={{
+                backgroundColor: 'primary'
+              }}
+              variant='contained'
+              type='submit'
+            >
+              Save
+            </ButtonNavbar>
           </Stack>
-          <Typography fontWeight={600}>Title</Typography>
-          <Controller
-            name='title'
-            control={control}
-            defaultValue=''
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                error={!!errors.title}
-                helperText={errors.title ? 'Title is required' : ''}
-              />
-            )}
-          />
+        </Stack>
+        <Typography fontWeight={600}>Title</Typography>
+        <Controller
+          name='title'
+          control={control}
+          defaultValue=''
+          rules={{ required: true }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              error={!!errors.title}
+              helperText={errors.title ? 'Title is required' : ''}
+            />
+          )}
+        />
 
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <Typography fontWeight={600}>Min Salary</Typography>
-              <Controller
-                name='minSalary'
-                control={control}
-                defaultValue=''
-                rules={{ pattern: /^[0-9]*$/ }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    error={!!errors.minSalary}
-                    helperText={errors.minSalary && 'Please enter a valid number'}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography fontWeight={600}>Max Salary</Typography>
-              <Controller
-                name='maxSalary'
-                control={control}
-                defaultValue=''
-                rules={{ pattern: /^[0-9]*$/ }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    error={!!errors.maxSalary}
-                    helperText={errors.maxSalary && 'Please enter a valid number'}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Typography fontWeight={600}>Location</Typography>
-              <Controller
-                name='location'
-                control={control}
-                defaultValue=''
-                render={({ field }) => <TextField {...field} fullWidth />}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography fontWeight={600}>Amount</Typography>
-              <Controller
-                name='amount'
-                control={control}
-                defaultValue=''
-                rules={{ pattern: /^[0-9]*$/ }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    error={!!errors.amount}
-                    helperText={errors.amount && 'Please enter a valid number'}
-                  />
-                )}
-              />
-            </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Typography fontWeight={600}>Min Salary</Typography>
+            <Controller
+              name='minSalary'
+              control={control}
+              defaultValue=''
+              rules={{ pattern: /^[0-9]*$/ }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  error={!!errors.minSalary}
+                  helperText={errors.minSalary && 'Please enter a valid number'}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography fontWeight={600}>Max Salary</Typography>
+            <Controller
+              name='maxSalary'
+              control={control}
+              defaultValue=''
+              rules={{ pattern: /^[0-9]*$/ }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  error={!!errors.maxSalary}
+                  helperText={errors.maxSalary && 'Please enter a valid number'}
+                />
+              )}
+            />
           </Grid>
 
-          <Typography variant='h5'>Requirement</Typography>
-          <Controller
-            name='requirement'
-            control={control}
-            defaultValue=''
-            rules={{ required: true }}
-            render={({ field }) => <QuillEditor {...field} />}
-          />
+          <Grid item xs={12} md={6}>
+            <Typography fontWeight={600}>Location</Typography>
+            <Controller
+              name='location'
+              control={control}
+              defaultValue=''
+              render={({ field }) => <TextField {...field} fullWidth />}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography fontWeight={600}>Amount</Typography>
+            <Controller
+              name='amount'
+              control={control}
+              defaultValue=''
+              rules={{ pattern: /^[0-9]*$/ }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  error={!!errors.amount}
+                  helperText={errors.amount && 'Please enter a valid number'}
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
 
-          {/* {errors.content && (
+        <Typography variant='h5'>Requirement</Typography>
+        <Controller
+          name='requirement'
+          control={control}
+          defaultValue=''
+          rules={{ required: true }}
+          render={({ field }) => <QuillEditor {...field} />}
+        />
+
+        {/* {errors.content && (
             <Typography color='error' variant='caption'>
               Content is required
             </Typography>
           )} */}
-        </Stack>
-      </form>
-    </Container>
+      </Stack>
+    </form>
   )
 }
-
-const Container = styled.div`
-  height: 95%;
-  overflow: auto;
-  padding: 20px 13px 0;
-`
 
 export default EditorRecruitment

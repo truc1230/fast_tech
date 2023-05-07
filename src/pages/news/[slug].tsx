@@ -1,6 +1,7 @@
 import { ArrowBackIcon } from '@/components/icon'
 import { getArticleBySlug, getArticles } from '@/pages/api/articles'
 import { TArticleWithAuthor, TypeId } from '@/types'
+import { HtmlTypography } from '@/ui/atom'
 import { Panel } from '@/ui/molecules'
 import { ListArticles } from '@/ui/organisms'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
@@ -19,12 +20,13 @@ const DetailNews = (props: Props) => {
   const router = useRouter()
   return (
     <DefaultLayout>
-      <div
-        className='px-10 py-8'
+      {/* <div
+        className='px-5 md:px-32 py-8'
         dangerouslySetInnerHTML={{
           __html: data?.content as string
         }}
-      ></div>
+      ></div> */}
+      <HtmlTypography paddingY={8} paddingX={32} content={data?.content as string} />
       <Box display={'flex'} padding={5}>
         <Link href={'/news'}>
           <Button>

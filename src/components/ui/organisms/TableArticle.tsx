@@ -24,6 +24,7 @@ import { FormUser, QueryParams, TArticleWithAuthor } from '@/types'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
+import { EllipsisTypography } from '@/ui/atom'
 
 type Props = {
   data: TArticleWithAuthor[]
@@ -79,10 +80,8 @@ export default function TableArticle(props: Props) {
         <TableHead>
           <TableRow>
             <TableCell> Id</TableCell>
-            <TableCell align='center'>title</TableCell>
+            <TableCell align='left'>Title</TableCell>
             <TableCell align='center'>Author</TableCell>
-            {/* <TableCell align='center'></TableCell> */}
-            {/* <TableCell align='center'>Status</TableCell> */}
             <TableCell align='center'>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -92,7 +91,9 @@ export default function TableArticle(props: Props) {
               <TableCell component='th' scope='row'>
                 {row.id}
               </TableCell>
-              <TableCell align='center'>{row.title}</TableCell>
+              <TableCell align='left'>
+                <EllipsisTypography WebkitLineClamp='1' maxWidth={300} text={row.title} />
+              </TableCell>
               <TableCell align='center'>{row.author.name}</TableCell>
               <TableCell align='center'>{renderDetailsButton(row)}</TableCell>
             </TableRow>
@@ -100,7 +101,6 @@ export default function TableArticle(props: Props) {
         </TableBody>
       </Table>
       <TablePagination
-        // rowsPerPageOptions={[10, 25, 100]}
         component='div'
         count={total}
         rowsPerPage={params.limit || 5}
@@ -110,7 +110,6 @@ export default function TableArticle(props: Props) {
             setPage(newPage + 1)
           }
         }}
-        // onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </TableContainer>
   )
