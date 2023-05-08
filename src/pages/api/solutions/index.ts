@@ -56,7 +56,7 @@ export async function getSolutions(params: QueryParams<TSolution>) {
     limit = 10,
     page = 1,
     order = 'id',
-    by = 'asc',
+    by = 'desc',
     textSearch
   }: QueryParams<TSolution> = params
   const offset = (page - 1) * limit

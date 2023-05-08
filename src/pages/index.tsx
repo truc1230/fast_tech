@@ -29,7 +29,6 @@ export default function index(props: Props) {
 export async function getStaticProps() {
   const res = await getArticles({
     limit: 3,
-    by: 'desc'
   })
   const latestArticle = res.data
   return {

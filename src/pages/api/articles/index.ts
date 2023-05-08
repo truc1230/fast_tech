@@ -60,7 +60,7 @@ export async function getArticles(params: QueryParams<TArticle>) {
     limit = 10,
     page = 1,
     order = 'id',
-    by = 'asc',
+    by = 'desc',
     textSearch
   }: QueryParams<TArticle> = params
   const offset = (page - 1) * limit
