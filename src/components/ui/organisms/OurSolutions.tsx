@@ -27,27 +27,6 @@ const OurSolutions = (props: Props) => {
             </Link>
           </Grid>
         ))}
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
-        <Grid item xs={12} sm={5} md={3}>
-          <Solution />
-        </Grid>
       </Grid>
     </Box>
   )

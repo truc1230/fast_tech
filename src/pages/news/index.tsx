@@ -56,22 +56,10 @@ const index = (props: Props) => {
       </Stack>
       <Grid container spacing={8} padding={8}>
         {articles.map((item) => (
-          <Grid key={item.id} item md={4}>
+          <Grid key={item.id} item xs={12} sm={6} md={4}>
             <Article data={item} />
           </Grid>
         ))}
-        <Grid item md={4}>
-          <Article />
-        </Grid>{' '}
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
-        <Grid item md={4}>
-          <Article />
-        </Grid>
       </Grid>
     </DefaultLayout>
   )
