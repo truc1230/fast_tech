@@ -4,7 +4,11 @@ import {
   EmojiObjectsOutlinedIcon,
   LogoutIcon,
   Person,
-  WorkOutlineIcon
+  WorkOutlineIcon,
+  LinkedInIcon,
+  FacebookIcon,
+  TwitterIcon,
+  YouTubeIcon
 } from '@/components/icon'
 
 export const adminRoutes = [
@@ -38,23 +42,41 @@ export const adminRoutes = [
 export const guestRouter = [
   {
     title: 'Our Solution',
-    icon: Description,
     to: '/our-solution'
   },
   {
     title: 'News',
-    icon: Person,
     to: '/news'
   },
   {
     title: 'About Us',
-    icon: DashboardIcon,
     to: '/about'
   },
 
   {
     title: 'Recruitment',
-    icon: Description,
     to: '/recruitment'
+  }
+]
+export const linkSocial = [
+  {
+    title: 'LinkedIn',
+    icon: LinkedInIcon,
+    to: 'https://www.linkedin.com/'
+  },
+  {
+    title: 'Facebook',
+    icon: FacebookIcon,
+    to: 'https://www.facebook.com/'
+  },
+  {
+    title: 'Twitter',
+    icon: TwitterIcon,
+    to: 'https://twitter.com/'
+  },
+  {
+    title: 'Youtube',
+    icon: YouTubeIcon,
+    to: 'https://youtube.com/'
   }
 ]

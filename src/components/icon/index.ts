@@ -19,6 +19,10 @@ import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import YouTubeIcon from '@mui/icons-material/YouTube'
 export {
   ArrowForwardIcon,
   KeyboardArrowDownIcon,
@@ -40,5 +44,9 @@ export {
   WorkOutlineIcon,
   EmojiObjectsOutlinedIcon,
   ArrowForwardOutlinedIcon,
-  MenuOutlinedIcon
+  MenuOutlinedIcon,
+  LinkedInIcon,
+  FacebookIcon,
+  TwitterIcon,
+  YouTubeIcon
 }
