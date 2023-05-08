@@ -74,7 +74,7 @@ function Navbar() {
       alignItems='center'
       justifyContent={'space-between'}
     >
-      <Link href={'/home'} passHref>
+      <Link href={'/'} passHref>
         <Typography
           variant='h4'
           fontWeight={700}
