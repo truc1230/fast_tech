@@ -1,5 +1,5 @@
 import { ArrowForwardIosIcon } from '@/components/icon'
-import { Image } from '@/ui/atom'
+import { EllipsisTypography, Image } from '@/ui/atom'
 import { Stack, Typography } from '@mui/material'
 import { red, purple } from '@mui/material/colors'
 import { border } from '@mui/system'
@@ -44,33 +44,16 @@ const Solution = (props: Props) => {
           width={'60px'}
           height={'60px'}
         /> */}
-        <Typography
-          fontWeight={700}
-          variant='h5'
-          sx={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: '2',
-            WebkitBoxOrient: 'vertical'
-          }}
-        >
-          {title || 'Data Analytics and Ai'}
-        </Typography>
+        <EllipsisTypography fontWeight={700} variant='h5' text={title || 'Data Analytics and Ai'} />
         <ArrowForwardIosIcon fontSize='small' />
       </Stack>
-      <Typography
-        sx={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: '3',
-          WebkitBoxOrient: 'vertical'
-        }}
-      >
-        {description ||
-          'We offer end to end application development to accelerate digital innovation and ensure business growth'}
-      </Typography>
+      <EllipsisTypography
+        WebkitLineClamp={'3'}
+        text={
+          description ||
+          'We offer end to end application development to accelerate digital innovation and ensure business growth'
+        }
+      />
     </Stack>
   )
 }

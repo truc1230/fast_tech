@@ -17,6 +17,7 @@ import { Solution as TSolution } from '@prisma/client'
 import { FormUser, QueryParams } from '@/types'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { EllipsisTypography } from '@/ui/atom'
 
 type Props = {
   data: TSolution[]
@@ -73,32 +74,10 @@ export default function TableSolution(props: Props) {
                 {row.id}
               </TableCell>
               <TableCell align='left'>
-                <Typography
-                  maxWidth={150}
-                  sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: '1',
-                    WebkitBoxOrient: 'vertical'
-                  }}
-                >
-                  {row.title}
-                </Typography>
+                <EllipsisTypography WebkitLineClamp='1' maxWidth={150} text={row.title} />
               </TableCell>
               <TableCell align='left'>
-                <Typography
-                  maxWidth={300}
-                  sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: '2',
-                    WebkitBoxOrient: 'vertical'
-                  }}
-                >
-                  {row.description}
-                </Typography>
+                <EllipsisTypography maxWidth={300} text={row.description} />
               </TableCell>
               <TableCell align='left'>
                 <img

@@ -2,8 +2,10 @@ import { ArrowBackIcon } from '@/components/icon'
 import { FormArticle } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { QuillEditor } from '@/ui/molecules'
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
 import { Stack, TextField, Typography } from '@mui/material'
 import { Article } from '@prisma/client'
+import _ from 'lodash'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -28,8 +30,16 @@ function EditorArticle(props: Props) {
     control,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors }
   } = useForm({})
+  const title = watch('title')
+
+  useEffect(() => {
+    if (_.isEmpty(title)) return
+    setValue('slug', _.kebabCase(removeVietnameseTones(title)))
+  }, [title])
   const onSubmit = async (data: FormArticle) => {
     try {
       console.log(data)
@@ -40,7 +50,6 @@ function EditorArticle(props: Props) {
   }
 
   return (
-    <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack>
           <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
@@ -84,9 +93,6 @@ function EditorArticle(props: Props) {
           />
 
           <Typography fontWeight={700}>Slug</Typography>
-          <Typography fontSize={12} fontWeight={300} variant='caption'>
-            blank for the default value
-          </Typography>
           <Controller
             name='slug'
             control={control}
@@ -94,7 +100,8 @@ function EditorArticle(props: Props) {
             render={({ field }) => (
               <TextField
                 margin={'normal'}
-                placeholder=' This is path for news, default: /this-is-title-news'
+                disabled
+                // placeholder=' This is path for news, default: /this-is-title-news'
                 {...field}
                 fullWidth
               />
@@ -116,14 +123,9 @@ function EditorArticle(props: Props) {
           )} */}
         </Stack>
       </form>
-    </Container>
   )
 }
 
-const Container = styled.div`
-  height: 95%;
-  overflow: auto;
-  padding: 20px 13px 0;
-`
+
 
 export default EditorArticle

@@ -66,7 +66,7 @@ export async function getRecruitmentList(params: QueryParams<Recruitment>) {
     limit = 10,
     page = 1,
     order = 'id',
-    by = 'asc',
+    by = 'desc',
     textSearch
   }: QueryParams<Recruitment> = params
   const offset = (page - 1) * limit

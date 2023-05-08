@@ -1,3 +1,4 @@
+import { guestRouter, linkSocial } from '@/config'
 import { FormRegister } from '@/ui/molecules'
 import {
   Box,
@@ -17,60 +18,15 @@ import * as React from 'react'
 export interface IFooterProps {}
 export const MENU_ITEMS = [
   {
-    title: 'Solution',
+    title: 'Useful Links',
     children: {
-      data: [
-        {
-          title: 'Item Description 1',
-          to: 'description1'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description1'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description1'
-        }
-      ]
+      data: guestRouter
     }
   },
   {
-    title: 'Solution2',
+    title: 'Connect with us',
     children: {
-      data: [
-        {
-          title: 'Item Description 1',
-          to: 'description2'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description2'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description2'
-        }
-      ]
-    }
-  },
-  {
-    title: 'Solution3',
-    children: {
-      data: [
-        {
-          title: 'Item Description 1',
-          to: 'description3'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description3'
-        },
-        {
-          title: 'Item Description 1',
-          to: 'description3'
-        }
-      ]
+      data: linkSocial
     }
   }
 ]
@@ -78,9 +34,9 @@ export const MENU_ITEMS = [
 export default function Footer(props: IFooterProps) {
   return (
     <Grid container padding={8} bgcolor={'black'} color={'white'}>
-      <Grid container item md={8} spacing={4}>
+      <Grid container item xs={12} spacing={4}>
         {MENU_ITEMS.map((item, index) => (
-          <Grid key={index} item md={3} xs={4}>
+          <Grid key={index} item xs={12} sm={6}>
             <Typography>{item.title}</Typography>
             <List>
               {item.children.data.map((child, idx) => (
@@ -97,11 +53,11 @@ export default function Footer(props: IFooterProps) {
           </Grid>
         ))}
       </Grid>
-      <Grid item md={4}>
+      {/* <Grid item md={4}>s
         <Typography variant='h4'>Stay in the know with our newsletter</Typography>
         <FormRegister />
-      </Grid>
-      <Grid item md={12} className='pt-4 border-t-2 mt-4 '>
+      </Grid> */}
+      <Grid item xs={12} className='pt-4 border-t-2 mt-4 '>
         <Typography>2023 Fast Tech</Typography>
         <Typography>Part of Nash Squared.</Typography>
       </Grid>
