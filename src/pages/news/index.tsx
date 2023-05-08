@@ -1,13 +1,19 @@
 import { getArticles } from '@/pages/api/articles'
 import { articleService } from '@/service'
+import { QueryParams } from '@/types'
 import { Article, FormSearch, Panel } from '@/ui/molecules'
 import DefaultLayout from '@/ui/templates/layout/DefaultLayout'
-import { Chip, Grid, Stack, Typography } from '@mui/material'
+import { Chip, Grid, Pagination, PaginationItem, Stack, Typography } from '@mui/material'
 import { Article as TArticles } from '@prisma/client'
+import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import React from 'react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 type Props = {
   articles: TArticles[]
+  total: number
 }
 type CategoryType = {
   color?: 'primary' | 'error' | 'secondary' | 'success' | 'default' | 'info' | 'warning' | undefined
@@ -32,9 +38,21 @@ const categories: CategoryType[] = [
   }
 ]
 // const articles = [{}]
+  const LIMIT = 1
+
 const index = (props: Props) => {
-  const { articles } = props
-  console.log(articles)
+  const { articles, total } = props
+  const router = useRouter()
+  const page = router.query.page || 1
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: any) => {
+    // router.push(`/news/?page=${value}`, undefined, { shallow: false })
+    router.push({
+      pathname: '/news',
+      query: { ...router.query, page: value }
+    })
+    {console.log(typeof value)}
+    {console.log( value)}
+  }
   return (
     <DefaultLayout>
       <Panel
@@ -60,19 +78,41 @@ const index = (props: Props) => {
           </Grid>
         ))}
       </Grid>
+      <Stack alignItems='center'>
+        <Pagination
+          page={page as number}
+          count={total % LIMIT == 0 ? total / LIMIT : Math.ceil(total / LIMIT)}
+          size='large'
+          variant="outlined" 
+          color='secondary'
+          onChange={handlePageChange}
+          renderItem={(item) => (
+            <PaginationItem
+              slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+              {...item}
+            />
+          )}
+        />
+      </Stack>
     </DefaultLayout>
   )
 }
 
 export default index
 
-export async function getStaticProps() {
-  const res = await getArticles({
-    limit: 100
-  })
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
+  const page = query?.page || 1
+  console.log('page', page)
+  console.log('query', query)
+  const queryParams: QueryParams<TArticles> = {
+    limit: LIMIT,
+    page: page as number
+  }
+  const res = await getArticles(queryParams)
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(res.data))
+      articles: JSON.parse(JSON.stringify(res.data)),
+      total: res.total
     }
   }
 }
