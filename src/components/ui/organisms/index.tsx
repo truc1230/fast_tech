@@ -11,6 +11,7 @@ import RecruitmentList from './RecruitmentList'
 import DetailRecruitment from './DetailRecruitment'
 import TableSolution from './TableSolution'
 import EditorSolution from './EditorSolution'
+import Carousel from './Carousel'
 
 export {
   ListArticles,
@@ -25,5 +26,6 @@ export {
   RecruitmentList,
   DetailRecruitment,
   TableSolution,
-  EditorSolution
+  EditorSolution,
+  Carousel
 }
