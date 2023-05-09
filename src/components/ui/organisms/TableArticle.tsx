@@ -20,7 +20,7 @@ import {
   RestartAltIcon
 } from '@/components/icon'
 import { Article, User } from '@prisma/client'
-import { FormUser, QueryParams, TArticleWithAuthor } from '@/types'
+import { FormUser, QueryParams, TArticleWithAuthor, TypeId } from '@/types'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
@@ -32,11 +32,11 @@ type Props = {
   setPage: React.Dispatch<React.SetStateAction<number>>
   total: number
   // handleOpen: () => void
-  onSubmit: (data: FormUser) => void
+  handleDelete: (id: TypeId) => void
 }
 
 export default function TableArticle(props: Props) {
-  const { data = [], params, setPage, total, onSubmit } = props
+  const { data = [], params, setPage, total, handleDelete } = props
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
@@ -48,28 +48,16 @@ export default function TableArticle(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            onSubmit({ id })
+            handleDelete(id)
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Article'} />
         </IconButton>
-        <IconButton
-          onClick={async () => {
-            // await dispatch(getUserAction(id))
-            // router.push(`?id=${id}`, undefined, { shallow: false })
-          }}
-        >
+        <IconButton>
           <Link href={`/admin/article/${id}`}>
             <Tooltip children={<EditIcon />} title={'Edit Article'} />
           </Link>
         </IconButton>
-        {/* <IconButton
-          onClick={() => {
-            onSubmit({ id, password: process.env.DEFAULT_PASSWORD })
-          }}
-        >
-          <Tooltip children={<RestartAltIcon />} title={'Reset Password'} />
-        </IconButton> */}
       </>
     )
   }

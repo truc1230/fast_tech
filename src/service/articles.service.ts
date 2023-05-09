@@ -8,6 +8,6 @@ export const articleService = {
     (await axiosInstance.get(URL_ARTICLES, { params })).data,
   get: async (payload: TypeId) => (await axiosInstance.get(URL_ARTICLES + payload)).data,
   create: (payload: FormArticle) => axiosInstance.post(URL_ARTICLES, payload),
-  // delete: (payload) => axiosInstance.delete(URL_CATALOG_LIST + payload),
+  delete: (payload: TypeId) => axiosInstance.delete(URL_ARTICLES + payload),
   update: (id: TypeId, payload: FormArticle) => axiosInstance.put(URL_ARTICLES + id, payload)
 }

@@ -1,17 +1,21 @@
 import { AddIcon, ArrowBackIcon } from '@/components/icon'
 import { articleService } from '@/service'
-import { QueryParams } from '@/types'
+import { QueryParams, TApiResponseError, TArticleWithAuthor, TypeId } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { FormSearch } from '@/ui/molecules'
 import { AddUserForm, TableArticle } from '@/ui/organisms'
 import AdminLayout from '@/ui/templates/layout/AdminLayout'
 import { Skeleton, Stack } from '@mui/material'
 import { Article as TArticle, User } from '@prisma/client'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 const LIMIT = 5
-
+type TResponseGetArticles = {
+  data: TArticleWithAuthor[]
+  total: number
+}
 type Props = {}
 const AdminArticle = (props: Props) => {
   const [page, setPage] = useState(1)
@@ -19,9 +23,32 @@ const AdminArticle = (props: Props) => {
     page,
     limit: LIMIT
   }
+  const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ['articles', params],
     queryFn: () => articleService.getAll(params)
+  })
+  const { mutate } = useMutation({
+    mutationFn: (id: TypeId) => articleService.delete(id),
+    onSuccess(res) {
+      // const newUserData = data?.data.data || {}
+      queryClient.setQueryData(
+        ['articles', params],
+        (oldData: TResponseGetArticles | undefined) => {
+          const articles = oldData?.data || []
+          const adjustedData = articles.filter((article) => article.id !== res.data.data.id)
+          const total = oldData?.total || 0
+          return {
+            data: adjustedData,
+            total: total - 1
+          }
+        }
+      )
+      toast.success(res.data?.message || 'delete success')
+    },
+    onError(data: TApiResponseError) {
+      toast.error(data?.response?.data?.message || 'error')
+    }
   })
   console.log(data)
   return (
@@ -42,24 +69,13 @@ const AdminArticle = (props: Props) => {
                 Add Article
               </ButtonNavbar>
             </Link>
-            {/* <Link href={'/admin/article/add'}>
-              <ButtonNavbar>
-                <AddIcon />
-                Add Article
-              </ButtonNavbar>
-            </Link> */}
           </Stack>
           <TableArticle
             data={data?.data}
             params={params}
             setPage={setPage}
             total={data?.total}
-            // handleOpen={function (): void {
-            //   throw new Error('Function not implemented.')
-            // }}
-            onSubmit={function (data: Partial<User>): void {
-              throw new Error('Function not implemented.')
-            }}
+            handleDelete={mutate}
           />
         </>
       )}

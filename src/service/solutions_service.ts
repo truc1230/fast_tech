@@ -8,6 +8,6 @@ export const solutionService = {
     (await axiosInstance.get(URL_SOLUTION, { params })).data,
   get: async (payload: TypeId) => (await axiosInstance.get(URL_SOLUTION + payload)).data,
   create: (payload: FormSolution) => axiosInstance.post(URL_SOLUTION, payload),
-  // delete: (payload) => axiosInstance.delete(URL_CATALOG_LIST + payload),
+  delete: (payload: TypeId) => axiosInstance.delete(URL_SOLUTION + payload),
   update: (id: TypeId, payload: FormSolution) => axiosInstance.put(URL_SOLUTION + id, payload)
 }

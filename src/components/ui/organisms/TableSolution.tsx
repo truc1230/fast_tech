@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import { DeleteIcon, EditIcon } from '@/components/icon'
 import { Solution as TSolution } from '@prisma/client'
-import { FormUser, QueryParams } from '@/types'
+import { FormUser, QueryParams, TypeId } from '@/types'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { EllipsisTypography } from '@/ui/atom'
@@ -25,11 +25,11 @@ type Props = {
   setPage: React.Dispatch<React.SetStateAction<number>>
   total: number
   // handleOpen: () => void
-  onSubmit: (data: FormUser) => void
+  handleDelete: (id: TypeId) => void
 }
 
 export default function TableSolution(props: Props) {
-  const { data = [], params, setPage, total, onSubmit } = props
+  const { data = [], params, setPage, total, handleDelete } = props
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
@@ -41,7 +41,7 @@ export default function TableSolution(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            onSubmit({ id })
+            handleDelete(id)
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Solution'} />

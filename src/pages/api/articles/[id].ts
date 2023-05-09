@@ -23,15 +23,25 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   }
 }
 
-// DELETE /api/post/:id
-async function handleDELETE(req: unknown, res: NextApiResponse<any>) {
-  return res.json({})
+async function handleDELETE(req: NextApiRequest, res: NextApiResponse<any>) {
+  const id = Number(req.query.id)
+  const result = await getArticle(id)
+  if (!result) return res.status(404).json({ message: 'Article not found' })
+  const deleted = await prisma.article.delete({
+    where: { id }
+  })
+  return res.json({
+    message: 'Delete successfully',
+    data: {
+      id: deleted.id
+    }
+  })
 }
 export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query
   const result = await getArticle(id as string)
 
-  if (!result) return res.status(401).json({ message: 'Article not found' })
+  if (!result) return res.status(404).json({ message: 'Article not found' })
   return res.json({ data: result })
 }
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
@@ -46,7 +56,9 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
   const updateData = {
     title,
     content,
-    slug: _.kebabCase(removeVietnameseTones(slug as string)) || _.kebabCase(removeVietnameseTones(title as string))
+    slug:
+      _.kebabCase(removeVietnameseTones(slug as string)) ||
+      _.kebabCase(removeVietnameseTones(title as string))
   }
 
   const updateUser = await prisma.article.update({
