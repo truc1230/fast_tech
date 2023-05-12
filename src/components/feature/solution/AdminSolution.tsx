@@ -55,31 +55,29 @@ const AdminSolution = (props: Props) => {
   console.log(data)
   return (
     <AdminLayout>
+      <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
+        <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
+        <Link href={'/admin/solution/add'}>
+          <ButtonNavbar>
+            <AddIcon />
+            Add Solution
+          </ButtonNavbar>
+        </Link>
+      </Stack>
       {isLoading ? (
-        <Box padding={'10px'}>
-          <Skeleton animation='wave' height={'10%'} />
-          <Skeleton animation='wave' height={'10%'} />
-          <Skeleton animation='wave' height={'10%'} />
-        </Box>
-      ) : (
         <>
-          <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
-            <Link href={'/admin/solution/add'}>
-              <ButtonNavbar>
-                <AddIcon />
-                Add Solution
-              </ButtonNavbar>
-            </Link>
-          </Stack>
-          <TableSolution
-            data={data?.data}
-            params={params}
-            setPage={setPage}
-            total={data?.total}
-            handleDelete={mutate}
-          />
+          <Skeleton animation='wave' height={'10%'} />
+          <Skeleton animation='wave' height={'10%'} />
+          <Skeleton animation='wave' height={'10%'} />
         </>
+      ) : (
+        <TableSolution
+          data={data?.data}
+          params={params}
+          setPage={setPage}
+          total={data?.total}
+          handleDelete={mutate}
+        />
       )}
     </AdminLayout>
   )

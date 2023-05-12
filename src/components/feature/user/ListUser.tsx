@@ -72,6 +72,14 @@ const ListUser = (props: Props) => {
 
   return (
     <AdminLayout>
+      <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
+        <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
+        <ButtonNavbar onClick={handleOpen}>
+          <AddIcon />
+          Add Account
+        </ButtonNavbar>
+        <AddUserForm open={open} onClose={handleClose} onSubmit={mutate} />
+      </Stack>
       {isLoading ? (
         <>
           <Skeleton animation='wave' height={'10%'} />
@@ -79,24 +87,14 @@ const ListUser = (props: Props) => {
           <Skeleton animation='wave' height={'10%'} />
         </>
       ) : (
-        <>
-          <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
-            <ButtonNavbar onClick={handleOpen}>
-              <AddIcon />
-              Add Account
-            </ButtonNavbar>
-            <AddUserForm open={open} onClose={handleClose} onSubmit={mutate} />
-          </Stack>
-          <TableUser
-            handleOpen={handleOpen}
-            data={data.data}
-            total={data.total}
-            params={params}
-            setPage={setPage}
-            onSubmit={mutate}
-          />
-        </>
+        <TableUser
+          handleOpen={handleOpen}
+          data={data.data}
+          total={data.total}
+          params={params}
+          setPage={setPage}
+          onSubmit={mutate}
+        />
       )}
     </AdminLayout>
   )

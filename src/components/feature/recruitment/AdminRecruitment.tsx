@@ -56,6 +56,15 @@ const AdminRecruitment = (props: Props) => {
   })
   return (
     <AdminLayout>
+      <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
+        <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
+        <Link href={'/admin/recruitment/add'}>
+          <ButtonNavbar>
+            <AddIcon />
+            Add Recruitment
+          </ButtonNavbar>
+        </Link>
+      </Stack>
       {isLoading ? (
         <>
           <Skeleton animation='wave' height={'10%'} />
@@ -63,24 +72,13 @@ const AdminRecruitment = (props: Props) => {
           <Skeleton animation='wave' height={'10%'} />
         </>
       ) : (
-        <>
-          <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
-            <Link href={'/admin/recruitment/add'}>
-              <ButtonNavbar>
-                <AddIcon />
-                Add Recruitment
-              </ButtonNavbar>
-            </Link>
-          </Stack>
-          <TableRecruitment
-            data={data?.data}
-            params={params}
-            setPage={setPage}
-            total={data?.total}
-            handleDelete={mutate}
-          />
-        </>
+        <TableRecruitment
+          data={data?.data}
+          params={params}
+          setPage={setPage}
+          total={data?.total}
+          handleDelete={mutate}
+        />
       )}
     </AdminLayout>
   )

@@ -58,6 +58,15 @@ const AdminArticle = (props: Props) => {
   console.log(data)
   return (
     <AdminLayout>
+      <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
+        <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
+        <Link href={'/admin/article/add'}>
+          <ButtonNavbar>
+            <AddIcon />
+            Add Article
+          </ButtonNavbar>
+        </Link>
+      </Stack>
       {isLoading ? (
         <>
           <Skeleton animation='wave' height={'10%'} />
@@ -65,24 +74,13 @@ const AdminArticle = (props: Props) => {
           <Skeleton animation='wave' height={'10%'} />
         </>
       ) : (
-        <>
-          <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
-            <Link href={'/admin/article/add'}>
-              <ButtonNavbar>
-                <AddIcon />
-                Add Article
-              </ButtonNavbar>
-            </Link>
-          </Stack>
-          <TableArticle
-            data={data?.data}
-            params={params}
-            setPage={setPage}
-            total={data?.total}
-            handleDelete={mutate}
-          />
-        </>
+        <TableArticle
+          data={data?.data}
+          params={params}
+          setPage={setPage}
+          total={data?.total}
+          handleDelete={mutate}
+        />
       )}
     </AdminLayout>
   )
