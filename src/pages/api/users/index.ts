@@ -37,12 +37,14 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
         OR: [
           {
             name: {
-              contains: textSearch
+              contains: textSearch,
+              mode: 'insensitive'
             }
           },
           {
             username: {
-              contains: textSearch
+              contains: textSearch,
+              mode: 'insensitive'
             }
           }
         ]
@@ -65,10 +67,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const token: JWT | null = await getToken({
-    req,
-    secret: process.env.NEXT_AUTH_SECRET
-  })
+  const token: JWT | null = await getToken({ req })
   console.log('token', token)
   if (!token) return res.status(401).json({ message: 'Unauthorized' })
 

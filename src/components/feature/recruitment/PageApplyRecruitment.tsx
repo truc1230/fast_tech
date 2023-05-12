@@ -49,6 +49,16 @@ const PageApplyRecruitment = () => {
     }
   }
 
+  function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const inputElement = event.target as HTMLInputElement
+    if (!inputElement.files) {
+      return
+    }
+    const files = inputElement.files
+    return onChange(files)
+    // Do something with the files...
+  }
+
   return (
     <DefaultLayout>
       <ContainerBox>
@@ -85,7 +95,17 @@ const PageApplyRecruitment = () => {
               }}
               render={({ field: { onChange }, fieldState: { error } }) => (
                 <>
-                  <Input type='file' onChange={(e) => onChange(e.target.files)} />
+                  <Input
+                    type='file'
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      const inputElement = event.target as HTMLInputElement
+                      if (!inputElement.files) {
+                        return
+                      }
+                      const files = inputElement.files
+                      return onChange(files)
+                    }}
+                  />
                   {error && (
                     <FormHelperText
                       sx={{

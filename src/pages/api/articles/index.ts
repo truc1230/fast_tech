@@ -35,7 +35,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   const { content, title, slug }: TArticle = req.body
-  const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
+  const token = await getToken({ req})
   console.log('token', token)
   if (token) {
     const result = await prisma.article.create({
@@ -66,20 +66,16 @@ export async function getArticles(params: QueryParams<TArticle>) {
   const offset = (page - 1) * limit
   let where = {}
   if (textSearch) {
-    // where = {
-    //   OR: [
-    //     {
-    //       name: {
-    //         contains: textSearch
-    //       }
-    //     },
-    //     {
-    //       username: {
-    //         contains: textSearch
-    //       }
-    //     }
-    //   ]
-    // }
+    where = {
+      OR: [
+        {
+          title: {
+            contains: textSearch,
+            mode: 'insensitive'
+          }
+        }
+      ]
+    }
   }
   const articles = await prisma.article.findMany({
     where,

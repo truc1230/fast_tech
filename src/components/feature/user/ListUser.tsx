@@ -1,4 +1,4 @@
-import { useControlPopup } from '@/components/hooks'
+import { useControlPopup, useDebounce } from '@/components/hooks'
 import { AddIcon } from '@/components/icon'
 import { userService } from '@/service/users.service'
 import { FormUser, QueryParams, TApiResponseError } from '@/types'
@@ -20,17 +20,22 @@ type TResponseGetUsers = {
 const LIMIT = 5
 const ListUser = (props: Props) => {
   const [page, setPage] = useState(1)
+  const [textSearch, setTextSearch] = useState('')
+  const debouncedValue = useDebounce(textSearch, 300)
+
   const { open, handleClose: handleCloseDialog, handleOpen } = useControlPopup()
   const router = useRouter()
   const queryClient = useQueryClient()
   const params: QueryParams<User> = {
     page,
-    limit: LIMIT
+    limit: LIMIT,
+    textSearch: debouncedValue
   }
   const { data, isLoading } = useQuery({
     queryKey: ['users', params],
     queryFn: () => userService.getAll(params),
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    keepPreviousData: true
   })
 
   const { mutate, mutateAsync, error } = useMutation({
@@ -76,7 +81,7 @@ const ListUser = (props: Props) => {
       ) : (
         <>
           <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch />
+            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
             <ButtonNavbar onClick={handleOpen}>
               <AddIcon />
               Add Account

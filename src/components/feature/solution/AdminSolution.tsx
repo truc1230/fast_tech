@@ -1,3 +1,4 @@
+import { useDebounce } from '@/components/hooks'
 import { AddIcon } from '@/components/icon'
 import { solutionService } from '@/service'
 import { QueryParams, TApiResponseError, TypeId } from '@/types'
@@ -16,13 +17,17 @@ const LIMIT = 5
 type Props = {}
 const AdminSolution = (props: Props) => {
   const [page, setPage] = useState(1)
+  const [textSearch, setTextSearch] = useState('')
+  const debouncedValue = useDebounce(textSearch, 300)
   const params: QueryParams<TSolution> = {
     page,
-    limit: LIMIT
+    limit: LIMIT,
+    textSearch: debouncedValue
   }
   const { data, isLoading } = useQuery({
     queryKey: ['solutions', params],
-    queryFn: () => solutionService.getAll(params)
+    queryFn: () => solutionService.getAll(params),
+    keepPreviousData: true
   })
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
@@ -59,7 +64,7 @@ const AdminSolution = (props: Props) => {
       ) : (
         <>
           <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch />
+            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
             <Link href={'/admin/solution/add'}>
               <ButtonNavbar>
                 <AddIcon />

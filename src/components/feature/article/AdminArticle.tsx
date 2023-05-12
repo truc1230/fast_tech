@@ -1,3 +1,4 @@
+import { useDebounce } from '@/components/hooks'
 import { AddIcon, ArrowBackIcon } from '@/components/icon'
 import { articleService } from '@/service'
 import { QueryParams, TApiResponseError, TArticleWithAuthor, TypeId } from '@/types'
@@ -19,14 +20,18 @@ type TResponseGetArticles = {
 type Props = {}
 const AdminArticle = (props: Props) => {
   const [page, setPage] = useState(1)
+  const [textSearch, setTextSearch] = useState('')
+  const debouncedValue = useDebounce(textSearch, 300)
   const params: QueryParams<TArticle> = {
     page,
-    limit: LIMIT
+    limit: LIMIT,
+    textSearch: debouncedValue
   }
   const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ['articles', params],
-    queryFn: () => articleService.getAll(params)
+    queryFn: () => articleService.getAll(params),
+    keepPreviousData: true
   })
   const { mutate } = useMutation({
     mutationFn: (id: TypeId) => articleService.delete(id),
@@ -62,7 +67,7 @@ const AdminArticle = (props: Props) => {
       ) : (
         <>
           <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch />
+            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
             <Link href={'/admin/article/add'}>
               <ButtonNavbar>
                 <AddIcon />

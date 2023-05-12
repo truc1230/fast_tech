@@ -22,7 +22,7 @@ model Article {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
+  title     String   @unique @db.VarChar(255)
   content   String?
   authorId  Int
   slug      String   @db.VarChar(255)
@@ -32,7 +32,7 @@ model Article {
 
 model Solution {
   id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(255)
+  title       String   @unique @db.VarChar(255)
   description String   @db.VarChar(1024)
   content     String?
   image       String?
@@ -46,7 +46,7 @@ model Recruitment {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  title       String   @db.VarChar(255)
+  title       String   @unique @db.VarChar(255)
   requirement String?
   minSalary   Int
   maxSalary   Int

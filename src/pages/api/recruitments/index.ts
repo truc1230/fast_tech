@@ -41,7 +41,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
     requirement,
     slug
   }: Omit<Recruitment, 'id'> = req.body
-  const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
+  const token = await getToken({ req })
   if (token) {
     if (minSalary > maxSalary || amount < 0) return res.status(400).json({ message: 'Bad request' })
     const result = await prisma.recruitment.create({
@@ -72,20 +72,16 @@ export async function getRecruitmentList(params: QueryParams<Recruitment>) {
   const offset = (page - 1) * limit
   let where = {}
   if (textSearch) {
-    // where = {
-    //   OR: [
-    //     {
-    //       name: {
-    //         contains: textSearch
-    //       }
-    //     },
-    //     {
-    //       username: {
-    //         contains: textSearch
-    //       }
-    //     }
-    //   ]
-    // }
+    where = {
+      OR: [
+        {
+          title: {
+            contains: textSearch,
+            mode: 'insensitive'
+          }
+        }
+      ]
+    }
   }
   const recruitmentList = await prisma.recruitment.findMany({
     where,

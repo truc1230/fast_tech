@@ -1,3 +1,4 @@
+import { useDebounce } from '@/components/hooks'
 import { AddIcon } from '@/components/icon'
 import { recruitmentService } from '@/service'
 import { QueryParams, TApiResponseError, TypeId } from '@/types'
@@ -16,13 +17,17 @@ const LIMIT = 5
 type Props = {}
 const AdminRecruitment = (props: Props) => {
   const [page, setPage] = useState(1)
+  const [textSearch, setTextSearch] = useState('')
+  const debouncedValue = useDebounce(textSearch, 300)
   const params: QueryParams<Recruitment> = {
     page,
-    limit: LIMIT
+    limit: LIMIT,
+    textSearch: debouncedValue
   }
   const { data, isLoading } = useQuery({
     queryKey: ['recruitments', params],
-    queryFn: () => recruitmentService.getAll(params)
+    queryFn: () => recruitmentService.getAll(params),
+    keepPreviousData: true
   })
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
@@ -60,7 +65,7 @@ const AdminRecruitment = (props: Props) => {
       ) : (
         <>
           <Stack direction={'row'} justifyContent={'space-between'} padding={'10px'}>
-            <FormSearch />
+            <FormSearch textSearch={textSearch} setTextSearch={setTextSearch} />
             <Link href={'/admin/recruitment/add'}>
               <ButtonNavbar>
                 <AddIcon />

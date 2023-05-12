@@ -33,7 +33,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   const { content, title, description, image, slug }: TSolution = req.body
-  const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
+  const token = await getToken({ req })
   console.log('token', token)
   if (token) {
     const result = await prisma.solution.create({
@@ -62,6 +62,16 @@ export async function getSolutions(params: QueryParams<TSolution>) {
   const offset = (page - 1) * limit
   let where = {}
   if (textSearch) {
+    where = {
+      OR: [
+        {
+          title: {
+            contains: textSearch,
+            mode: 'insensitive'
+          }
+        }
+      ]
+    }
   }
   const solutions = await prisma.solution.findMany({
     where,
