@@ -2,8 +2,10 @@ import { ArrowBackIcon } from '@/components/icon'
 import { FormArticle } from '@/types'
 import { ButtonNavbar } from '@/ui/atom'
 import { QuillEditor } from '@/ui/molecules'
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
 import { Stack, TextField, Typography } from '@mui/material'
 import { Article } from '@prisma/client'
+import _ from 'lodash'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -28,8 +30,16 @@ function EditorArticle(props: Props) {
     control,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors }
   } = useForm({})
+  const title = watch('title')
+
+  useEffect(() => {
+    if (_.isEmpty(title)) return
+    setValue('slug', _.kebabCase(removeVietnameseTones(title)))
+  }, [title])
   const onSubmit = async (data: FormArticle) => {
     try {
       console.log(data)
@@ -40,11 +50,9 @@ function EditorArticle(props: Props) {
   }
 
   return (
-    <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack>
-          <Stack direction={'row'} paddingY={'10px'} justifyContent={'space-between'}>
-            <Typography variant='h5'>Title</Typography>
+          <Stack direction={'row'} paddingY={'10px'} justifyContent={'flex-end'}>
             <Stack direction={'row'} spacing={4}>
               <ButtonNavbar
                 onClick={() => {
@@ -67,6 +75,7 @@ function EditorArticle(props: Props) {
               </ButtonNavbar>
             </Stack>
           </Stack>
+          <Typography fontWeight={700}>Title</Typography>
           <Controller
             name='title'
             control={control}
@@ -74,6 +83,7 @@ function EditorArticle(props: Props) {
             rules={{ required: true }}
             render={({ field }) => (
               <TextField
+                margin={'normal'}
                 {...field}
                 fullWidth
                 error={!!errors.title}
@@ -81,7 +91,24 @@ function EditorArticle(props: Props) {
               />
             )}
           />
-          <Typography variant='h5'>Content</Typography>
+
+          <Typography fontWeight={700}>Slug</Typography>
+          <Controller
+            name='slug'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextField
+                margin={'normal'}
+                disabled
+                // placeholder=' This is path for news, default: /this-is-title-news'
+                {...field}
+                fullWidth
+              />
+            )}
+          />
+          <Typography variant='body2'></Typography>
+          <Typography fontWeight={700}>Content</Typography>
           <Controller
             name='content'
             control={control}
@@ -96,14 +123,9 @@ function EditorArticle(props: Props) {
           )} */}
         </Stack>
       </form>
-    </Container>
   )
 }
 
-const Container = styled.div`
-  height: 95%;
-  overflow: auto;
-  padding: 20px 13px 0;
-`
+
 
 export default EditorArticle

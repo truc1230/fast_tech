@@ -1,5 +1,6 @@
 import { ButtonOutline } from '@/ui/atom'
 import { Box, Stack, Typography, StackProps } from '@mui/material'
+import Link from 'next/link'
 import * as React from 'react'
 
 export interface IPanelProps extends StackProps {
@@ -9,10 +10,20 @@ export interface IPanelProps extends StackProps {
   src?: string
   center?: boolean
   hasButton?: boolean
+  to?: string
 }
 
 export default function Panel(props: IPanelProps) {
-  const { title, content, action, src, center = false, hasButton = true, ...rest } = props
+  const {
+    title,
+    content,
+    action = 'Explore Our Solution',
+    src,
+    center = false,
+    hasButton = true,
+    to = '/',
+    ...rest
+  } = props
 
   const propsCenter = {}
   return (
@@ -41,7 +52,7 @@ export default function Panel(props: IPanelProps) {
         <Typography
           fontWeight={700}
           lineHeight={'1.875rem'}
-          fontSize={' 1.25rem'}
+          fontSize={'clamp(1.25rem,calc(1rem + 1.5vw), 2.5rem)'}
           variant='h4'
           color={'primary.main'}
         >
@@ -50,7 +61,7 @@ export default function Panel(props: IPanelProps) {
         <Typography
           variant='h4'
           fontWeight={700}
-          fontSize={'36px'}
+          fontSize={'clamp(1.25rem,calc(1rem + 1.5vw), 2.5rem)'}
           sx={{
             backgroundImage: 'linear-gradient(to right, purple, red)',
             WebkitBackgroundClip: 'text',
@@ -63,7 +74,11 @@ export default function Panel(props: IPanelProps) {
           digitise business process or provide a seamless user experience`}
         </Typography>
 
-        {hasButton && <ButtonOutline>Explore Our Solution</ButtonOutline>}
+        {hasButton && (
+          <Link href={to}>
+            <ButtonOutline>{action}</ButtonOutline>
+          </Link>
+        )}
       </Stack>
     </Stack>
   )

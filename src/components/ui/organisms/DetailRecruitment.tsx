@@ -3,6 +3,7 @@ import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Recruitment } from '@prisma/client'
+import { formatVND } from '@/utils/formatCurrency'
 
 type Props = {
   data: Recruitment
@@ -20,6 +21,7 @@ const DetailRecruitment = (props: Props) => {
         width='100vw'
         spacing={20}
         marginX='auto'
+        padding={7}
         sx={{ '.MuiGrid-item': { paddingX: '40px' } }}
       >
         <Grid item md={8} xs={12}>
@@ -28,9 +30,10 @@ const DetailRecruitment = (props: Props) => {
           </Typography>
           <Box sx={{ marginBottom: '20px' }}>
             <Typography variant='h6'>
-              Mức lương: {data?.minSalary} VND - {data?.maxSalary} VND
+              Mức lương: {formatVND(data?.minSalary)} - {formatVND(data?.maxSalary)}
             </Typography>
             <Typography variant='h6'>Địa điểm: {data?.location}</Typography>
+            <Typography variant='h6'>Số lượng tuyển: {data?.amount}</Typography>
           </Box>
           <Box sx={{ marginBottom: '20px' }}>
             <Typography variant='h6'>Mô tả công việc</Typography>

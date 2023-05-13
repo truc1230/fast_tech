@@ -1,9 +1,6 @@
 // import prisma from '@/lib/prisma'
 import prisma from '@/lib/prisma'
-import { getArticle } from '@/pages/api/articles/[id]'
 import { FormRecruitment, FormUser, TypeId } from '@/types'
-import { Article, Recruitment } from '@prisma/client'
-import { hash } from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
@@ -22,9 +19,19 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   }
 }
 
-// DELETE /api/post/:id
-async function handleDELETE(req: unknown, res: NextApiResponse<any>) {
-  return res.json({})
+async function handleDELETE(req: NextApiRequest, res: NextApiResponse<any>) {
+  const id = Number(req.query.id)
+  const result = await getRecruitment(id)
+  if (!result) return res.status(404).json({ message: 'Recruitment not found' })
+  const deleted = await prisma.recruitment.delete({
+    where: { id }
+  })
+  return res.json({
+    message: 'Delete successfully',
+    data: {
+      id: deleted.id
+    }
+  })
 }
 export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query

@@ -7,6 +7,9 @@ import Panel from './Panel'
 import Modal from '@/ui/molecules/Modal'
 import FormSearch from '@/ui/molecules/FormSearch'
 import QuillEditor from '@/ui/molecules/QuillEditor'
+import CardTitle from '@/ui/molecules/CardTitle'
+import MenuNavbar from '@/ui/molecules/MenuNavbar'
+import DialogConfirm from '../molecules/DialogConfirm'
 export {
   Article,
   FormRegister,
@@ -16,5 +19,8 @@ export {
   Modal,
   FormSearch,
   MenuItemIcon,
-  QuillEditor
+  QuillEditor,
+  CardTitle,
+  MenuNavbar,
+  DialogConfirm
 }

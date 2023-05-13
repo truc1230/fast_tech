@@ -1,35 +1,67 @@
-import { LogoutIcon } from '@/components/icon'
+import { LogoutIcon, MenuOutlinedIcon } from '@/components/icon'
 import { adminRoutes } from '@/config'
 import { MenuItemIcon } from '@/ui/molecules'
-import { Drawer, Stack, Typography, MenuItem, ListItem, Divider } from '@mui/material'
+import { Drawer, Divider, Box, Fab } from '@mui/material'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
+import React, { useState } from 'react'
 
 type Props = {}
 
 const SidebarAdmin = (props: Props) => {
+  const [open, setOpen] = useState(false)
   const handleSignOut = () => {
     signOut({ callbackUrl: '/admin/login' })
   }
   return (
-    <Stack 
-    // className=' px-8 py-5 fixed h-screen shadow-md ' 
-     spacing={2}>
-      {adminRoutes.map((route) => (
-        <div key={route.title}>
-          <Link href={route.to}>
-            <MenuItemIcon icon={route.icon} className='px-8 py-4'>
-              {route.title}
-            </MenuItemIcon>
-          </Link>
-        </div>
-      ))}
-      <Divider />
-      <MenuItemIcon onClick={handleSignOut} icon={LogoutIcon} className='px-8 py-4'>
-        Sign Out
-      </MenuItemIcon>
-    </Stack>
+    <Box>
+      <Box
+        bottom={10}
+        left={10}
+        position={'fixed'}
+        padding={2}
+        display={{ xs: 'block', md: 'none' }}
+      >
+        <Fab onClick={() => setOpen(true)}>
+          <MenuOutlinedIcon />
+        </Fab>
+      </Box>
+      <Drawer variant='temporary' open={open} onClose={() => setOpen(false)}>
+        <Box
+          // position={'fixed'}
+          display={{ xs: 'block', md: 'none' }}
+        >
+          {adminRoutes.map((route) => (
+            <div key={route.title}>
+              <Link href={route.to}>
+                <MenuItemIcon icon={route.icon} className='px-8 py-4'>
+                  {route.title}
+                </MenuItemIcon>
+              </Link>
+            </div>
+          ))}
+          <Divider />
+          <MenuItemIcon onClick={handleSignOut} icon={LogoutIcon} className='px-8 py-4'>
+            Sign Out
+          </MenuItemIcon>
+        </Box>
+      </Drawer>
+      <Box display={{ xs: 'none', md: 'block' }}>
+        {adminRoutes.map((route) => (
+          <div key={route.title}>
+            <Link href={route.to}>
+              <MenuItemIcon icon={route.icon} className='px-8 py-4'>
+                {route.title}
+              </MenuItemIcon>
+            </Link>
+          </div>
+        ))}
+        <Divider />
+        <MenuItemIcon onClick={handleSignOut} icon={LogoutIcon} className='px-8 py-4'>
+          Sign Out
+        </MenuItemIcon>
+      </Box>
+    </Box>
   )
 }
 
