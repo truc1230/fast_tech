@@ -1,4 +1,4 @@
-import { ButtonNavbar } from '@/ui/atom'
+import { ButtonNavbar, HtmlTypography } from '@/ui/atom'
 import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -37,10 +37,7 @@ const DetailRecruitment = (props: Props) => {
           </Box>
           <Box sx={{ marginBottom: '20px' }}>
             <Typography variant='h6'>Mô tả công việc</Typography>
-            <Typography
-              variant='body1'
-              dangerouslySetInnerHTML={{ __html: data?.requirement as string }}
-            ></Typography>
+            <HtmlTypography content={data?.requirement as string} />
           </Box>
         </Grid>
         <Grid item position={'fixed'} right={0}>

@@ -7,6 +7,7 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { ArrowBackIcon, ArrowForwardIcon } from '@/components/icon'
+import { HtmlTypography } from '@/ui/atom'
 
 type Props = {
   data: Solution
@@ -26,13 +27,14 @@ const DetailSolution = (props: Props) => {
         }
         image={`https://media.ngoisao.vn/news/2016/09/16/hot-boy-hot-girl-viet-16-9-2016-ngoisaovn-4-ngoisao.vn.stamp2.jpg`}
       />
-      <Typography
+      {/* <Typography
         paddingX={10}
         paddingY={8}
         className='py-8 px-4 md:px-20'
         variant='body1'
-        dangerouslySetInnerHTML={{ __html: data?.content as string }}
-      ></Typography>
+        dangerouslySetInnerHTML={}
+      ></Typography> */}
+      <HtmlTypography content={data?.content as string} />
       <Box display={'flex'} padding={12}>
         <Link href={'/our-solution'}>
           <Button>

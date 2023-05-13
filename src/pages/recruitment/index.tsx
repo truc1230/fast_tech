@@ -21,6 +21,7 @@ export async function getStaticProps() {
   return {
     props: {
       recruitment: JSON.parse(JSON.stringify(res.data))
-    }
+    }, 
+    revalidate: 3600
   }
 }
