@@ -25,6 +25,8 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { EllipsisTypography } from '@/ui/atom'
+import { useControlPopup } from '@/components/hooks'
+import { DialogConfirm } from '@/ui/molecules'
 
 type Props = {
   data: TArticleWithAuthor[]
@@ -40,6 +42,8 @@ export default function TableArticle(props: Props) {
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
+  const { open, handleClose, handleOpen } = useControlPopup()
+  const [rowSelected, setRowSelected] = React.useState<TArticleWithAuthor>()
 
   const renderDetailsButton = (row: TArticleWithAuthor) => {
     const { id } = row
@@ -48,7 +52,8 @@ export default function TableArticle(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            handleDelete(id)
+            setRowSelected(row)
+            handleOpen()
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Article'} />
@@ -98,6 +103,13 @@ export default function TableArticle(props: Props) {
             setPage(newPage + 1)
           }
         }}
+      />
+      <DialogConfirm
+        open={open}
+        onClose={handleClose}
+        onSubmit={() => handleDelete(rowSelected?.id as TypeId)}
+        title={'Xác nhận xoá'}
+        description={'Bạn có muốn xoá bài viết này'}
       />
     </TableContainer>
   )

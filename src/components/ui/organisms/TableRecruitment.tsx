@@ -18,6 +18,8 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { formatVND } from '@/utils/formatCurrency'
+import { useControlPopup } from '@/components/hooks'
+import { DialogConfirm } from '@/ui/molecules'
 
 type Props = {
   data: Recruitment[]
@@ -33,7 +35,8 @@ export default function TableRecruitment(props: Props) {
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
-
+  const { open, handleClose, handleOpen } = useControlPopup()
+  const [rowSelected, setRowSelected] = React.useState<Recruitment>()
   const renderDetailsButton = (row: Recruitment) => {
     const { id } = row
 
@@ -41,7 +44,8 @@ export default function TableRecruitment(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            handleDelete(id)
+            setRowSelected(row)
+            handleOpen()
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Recruitment'} />
@@ -95,6 +99,13 @@ export default function TableRecruitment(props: Props) {
           }
         }}
         // onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <DialogConfirm
+        open={open}
+        onClose={handleClose}
+        onSubmit={() => handleDelete(rowSelected?.id as TypeId)}
+        title={'Xác nhận xoá'}
+        description={'Bạn có muốn xoá bài tuyển dụng này'}
       />
     </TableContainer>
   )

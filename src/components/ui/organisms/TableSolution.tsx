@@ -18,6 +18,8 @@ import { FormUser, QueryParams, TypeId } from '@/types'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { EllipsisTypography } from '@/ui/atom'
+import { DialogConfirm } from '@/ui/molecules'
+import { useControlPopup } from '@/components/hooks'
 
 type Props = {
   data: TSolution[]
@@ -33,7 +35,8 @@ export default function TableSolution(props: Props) {
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
-
+  const { open, handleClose, handleOpen } = useControlPopup()
+  const [rowSelected, setRowSelected] = React.useState<TSolution>()
   const renderDetailsButton = (row: TSolution) => {
     const { id } = row
 
@@ -41,7 +44,8 @@ export default function TableSolution(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            handleDelete(id)
+            setRowSelected(row)
+            handleOpen()
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Solution'} />
@@ -105,6 +109,13 @@ export default function TableSolution(props: Props) {
           }
         }}
         // onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <DialogConfirm
+        open={open}
+        onClose={handleClose}
+        onSubmit={() => handleDelete(rowSelected?.id as TypeId)}
+        title={'Xác nhận xoá'}
+        description={'Bạn có muốn xoá giải pháp này'}
       />
     </TableContainer>
   )
