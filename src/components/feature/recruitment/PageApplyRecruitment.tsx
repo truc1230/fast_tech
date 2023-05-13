@@ -49,16 +49,6 @@ const PageApplyRecruitment = () => {
     }
   }
 
-  function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const inputElement = event.target as HTMLInputElement
-    if (!inputElement.files) {
-      return
-    }
-    const files = inputElement.files
-    return onChange(files)
-    // Do something with the files...
-  }
-
   return (
     <DefaultLayout>
       <ContainerBox>
