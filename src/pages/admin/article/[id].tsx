@@ -8,3 +8,4 @@ const article = (props: Props) => {
 }
 
 export default article
+article.requireAuth = true

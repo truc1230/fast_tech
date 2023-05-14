@@ -1,6 +1,8 @@
 // import prisma from '@/lib/prisma'
 import prisma from '@/lib/prisma'
 import { FormRecruitment, FormUser, TypeId } from '@/types'
+import removeVietnameseTones from '@/utils/removeVietnameseTones'
+import _ from 'lodash'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
@@ -41,19 +43,30 @@ export async function handleGET(req: NextApiRequest, res: NextApiResponse) {
   return res.json({ data: result })
 }
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
-  const updateData: FormRecruitment = req.body
+  const { title, minSalary, maxSalary, location, amount, requirement, slug }: FormRecruitment =
+    req.body || {}
   console.log(req.body)
-  const { id } = req.query
+  const id = Number.parseInt(req.query.id as string, 10)
   const isExist = await prisma.recruitment.findUnique({
-    where: { id: Number(id) }
+    where: { id }
   })
+  if (!title) {
+    return res.status(400).json({ message: 'Title is required' })
+  }
 
   if (!isExist) return res.status(401).json({ message: 'Recruitment not found' })
-  // const updateData = { title, content }
-
+  const updateData = {
+    title,
+    minSalary: Number(minSalary),
+    maxSalary: Number(maxSalary),
+    location,
+    requirement,
+    slug: slug || _.kebabCase(removeVietnameseTones(title)),
+    amount: Number(amount)
+  }
   const updateUser = await prisma.recruitment.update({
     where: {
-      id: Number(id)
+      id
     },
     data: updateData
   })

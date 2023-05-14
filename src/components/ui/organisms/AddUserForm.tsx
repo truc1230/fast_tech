@@ -36,7 +36,8 @@ const AddUserForm = (props: Props) => {
   } = useForm({})
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (id) data.id = id
+    if (id) data.id = id  
+    console.log(data)
     handleSubmitAdd(data)
   }
 
@@ -90,7 +91,9 @@ const AddUserForm = (props: Props) => {
               <FormControlLabel value='ADMIN' control={<Radio />} label='Admin' />
               <FormControlLabel value='USER' control={<Radio />} label='User' />
             </RadioGroup>
-            {errors.role && <span className='text-red-500 text-sm'>{errors.role?.message?.toString()}</span>}
+            {errors.role && (
+              <span className='text-red-500 text-sm'>{errors.role?.message?.toString()}</span>
+            )}
           </DialogContent>
           <DialogActions>
             <Button

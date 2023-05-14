@@ -8,3 +8,4 @@ const solution = (props: Props) => {
 }
 
 export default solution
+solution.requireAuth = true

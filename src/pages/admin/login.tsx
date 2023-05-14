@@ -33,7 +33,7 @@ const LoginPage = () => {
       redirect: false,
       callbackUrl: '/admin'
     })
-    if (status?.ok) router.push('/admin')
+    // if (status?.ok) router.push('/admin')
     if (!status?.ok) toast.error(status?.error)
   }
   const validateNoSpace = (value: string) => {
