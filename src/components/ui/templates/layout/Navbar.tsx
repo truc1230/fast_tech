@@ -8,6 +8,7 @@ import { ContactForm } from '@/ui/organisms'
 import React from 'react'
 import { Modal } from '@/ui/molecules'
 import { MenuNavbar } from '@/ui/molecules/'
+import { useControlPopup } from '@/components/hooks'
 
 export const MENU_ITEMS = [
   {
@@ -64,9 +65,11 @@ export const MENU_ITEMS = [
 ]
 
 function Navbar() {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const {
+    open: openContactForm,
+    handleOpen: handleOpenContactForm,
+    handleClose: handleCloseContactForm
+  } = useControlPopup()
   return (
     <Stack
       className='h-20  w-[100vw] p-10 fixed top-0  shadow z-50 bg-white'
@@ -109,14 +112,15 @@ function Navbar() {
           </SectionButtonNavbar>
         ))} */}
 
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <ButtonNavbar onClick={handleOpen}>Get in touch</ButtonNavbar>
-        <MenuNavbar />
+        <MenuNavbar onOpenContactForm={handleOpenContactForm} />
       </Stack>
 
-      <Modal onClose={handleClose} children={<ContactForm />} open={open} width={6 / 8} />
+      <Modal
+        onClose={handleCloseContactForm}
+        children={<ContactForm />}
+        open={openContactForm}
+        width={6 / 8}
+      />
     </Stack>
   )
 }

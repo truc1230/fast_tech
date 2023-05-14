@@ -3,8 +3,9 @@ import React from 'react'
 
 type Props = {}
 
-const article = (props: Props) => {
+const EditRecruitmentAdminPage = (props: Props) => {
   return <AddRecruitment />
 }
 
-export default article
+export default EditRecruitmentAdminPage
+EditRecruitmentAdminPage.requireAuth = true

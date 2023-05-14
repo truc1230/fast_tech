@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, TypographyProps } from '@mui/material'
+import { Container, Typography, TypographyProps } from '@mui/material'
 import { makeStyles, DefaultTheme } from '@mui/styles'
 interface CustomTheme extends DefaultTheme {
   typography: {
@@ -26,13 +26,15 @@ export default function HtmlTypography(props: Props) {
   const { content, ...rest } = props
   const classes = useStyles()
   return (
-    <Typography
-      className={classes.root}
-      variant='body1'
-      dangerouslySetInnerHTML={{
-        __html: content
-      }}
-      {...rest}
-    ></Typography>
+    <Container>
+      <Typography
+        className={classes.root}
+        variant='body1'
+        dangerouslySetInnerHTML={{
+          __html: content
+        }}
+        {...rest}
+      ></Typography>
+    </Container>
   )
 }

@@ -74,6 +74,7 @@ export async function getStaticProps() {
   return {
     props: {
       articles: JSON.parse(JSON.stringify(res.data))
-    }
+    },
+    revalidate: 3600
   }
 }

@@ -45,6 +45,9 @@ import _ from 'lodash'
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
+  // pages: {
+  //   signIn: '/admin/login'
+  // },
   providers: [
     CredentialsProvider({
       id: 'credentials',
