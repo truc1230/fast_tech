@@ -67,13 +67,26 @@ export const sendEmail = (args: TArgsSendMail) => {
       content_id: 'mytext'
     })
   }
+  // try {
+  //   sgMail
+  //     .send(msg)
+  //     .then((res) => {
+  //       console.log('Send Mail Successfully')
 
+  //       console.log(JSON.stringify(res))
+  //     })
+  //     .catch((error) => {
+  //       throw error
+  //     })
+  // } catch (error) {
+  //   throw error
+  // }
   sgMail
     .send(msg)
-    .then(() => {
+    .then((res) => {
       console.log('Send Mail Successfully')
     })
     .catch((error) => {
-      console.error(error)
+      console.log('\n\n\nSendMail service error:::::::::>>>>>>>>>>>' + JSON.stringify(error))
     })
 }

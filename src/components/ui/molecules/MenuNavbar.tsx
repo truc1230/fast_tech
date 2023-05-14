@@ -1,13 +1,18 @@
 import { MenuOutlinedIcon } from '@/components/icon'
 import { guestRouter } from '@/config'
-import { Stack, MenuItem, Drawer, IconButton, Box } from '@mui/material'
+import { ButtonNavbar } from '@/ui/atom'
+import { Stack, MenuItem, Drawer, IconButton, Box, Modal } from '@mui/material'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-type Props = {}
+type Props = {
+  onOpenContactForm: () => void
+}
 
 const MenuNavbar = (props: Props) => {
+  const { onOpenContactForm } = props
   const [open, setOpen] = useState(false)
+
   return (
     <>
       <Stack direction={'row'} spacing={2} className='hidden lg:flex '>
@@ -16,6 +21,10 @@ const MenuNavbar = (props: Props) => {
             <MenuItem>{item.title}</MenuItem>
           </Link>
         ))}
+        {/* <IconButton>
+          <SearchIcon />
+        </IconButton> */}
+        <ButtonNavbar onClick={onOpenContactForm}>Get in touch</ButtonNavbar>
       </Stack>
       <IconButton className=' lg:hidden' onClick={() => setOpen(true)}>
         <MenuOutlinedIcon />
@@ -31,6 +40,10 @@ const MenuNavbar = (props: Props) => {
               </MenuItem>
             </Link>
           ))}
+          {/* <IconButton>
+            <SearchIcon />
+          </IconButton> */}
+          <ButtonNavbar onClick={onOpenContactForm}>Get in touch</ButtonNavbar>
         </Box>
       </Drawer>
     </>

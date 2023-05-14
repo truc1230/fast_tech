@@ -13,11 +13,13 @@ import {
 } from '@mui/material'
 import { DeleteIcon, EditIcon } from '@/components/icon'
 import { Article, Recruitment } from '@prisma/client'
-import { FormUser, QueryParams, TArticleWithAuthor } from '@/types'
+import { FormUser, QueryParams, TArticleWithAuthor, TypeId } from '@/types'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { formatVND } from '@/utils/formatCurrency'
+import { useControlPopup } from '@/components/hooks'
+import { DialogConfirm } from '@/ui/molecules'
 
 type Props = {
   data: Recruitment[]
@@ -25,15 +27,16 @@ type Props = {
   setPage: React.Dispatch<React.SetStateAction<number>>
   total: number
   // handleOpen: () => void
-  onSubmit: (data: Partial<Recruitment>) => void
+  handleDelete: (id: TypeId) => void
 }
 
 export default function TableRecruitment(props: Props) {
-  const { data = [], params, setPage, total, onSubmit } = props
+  const { data = [], params, setPage, total, handleDelete } = props
   console.log('data', data)
   const numPage = params.page ? params.page - 1 : 0
   const router = useRouter()
-
+  const { open, handleClose, handleOpen } = useControlPopup()
+  const [rowSelected, setRowSelected] = React.useState<Recruitment>()
   const renderDetailsButton = (row: Recruitment) => {
     const { id } = row
 
@@ -41,28 +44,17 @@ export default function TableRecruitment(props: Props) {
       <>
         <IconButton
           onClick={() => {
-            onSubmit({ id })
+            setRowSelected(row)
+            handleOpen()
           }}
         >
           <Tooltip children={<DeleteIcon color='error' />} title={'Delete Recruitment'} />
         </IconButton>
-        <IconButton
-          onClick={async () => {
-            // await dispatch(getUserAction(id))
-            // router.push(`?id=${id}`, undefined, { shallow: false })
-          }}
-        >
+        <IconButton>
           <Link href={`/admin/recruitment/${id}`}>
             <Tooltip children={<EditIcon />} title={'Edit Recruitment'} />
           </Link>
         </IconButton>
-        {/* <IconButton
-          onClick={() => {
-            onSubmit({ id, password: process.env.DEFAULT_PASSWORD })
-          }}
-        >
-          <Tooltip children={<RestartAltIcon />} title={'Reset Password'} />
-        </IconButton> */}
       </>
     )
   }
@@ -107,6 +99,13 @@ export default function TableRecruitment(props: Props) {
           }
         }}
         // onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <DialogConfirm
+        open={open}
+        onClose={handleClose}
+        onSubmit={() => handleDelete(rowSelected?.id as TypeId)}
+        title={'Xác nhận xoá'}
+        description={'Bạn có muốn xoá bài tuyển dụng này'}
       />
     </TableContainer>
   )

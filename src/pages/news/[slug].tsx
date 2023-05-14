@@ -20,13 +20,7 @@ const DetailNews = (props: Props) => {
   const router = useRouter()
   return (
     <DefaultLayout>
-      {/* <div
-        className='px-5 md:px-32 py-8'
-        dangerouslySetInnerHTML={{
-          __html: data?.content as string
-        }}
-      ></div> */}
-      <HtmlTypography paddingY={8} paddingX={32} content={data?.content as string} />
+      <HtmlTypography content={data?.content as string} />
       <Box display={'flex'} padding={5}>
         <Link href={'/news'}>
           <Button>
@@ -50,7 +44,7 @@ const DetailNews = (props: Props) => {
 export default DetailNews
 export async function getStaticPaths() {
   const res = await getArticles({
-    limit: 100
+    limit: 10
   })
 
   const paths = res.data.map((item: TArticleWithAuthor) => ({

@@ -9,6 +9,7 @@ import FormSearch from '@/ui/molecules/FormSearch'
 import QuillEditor from '@/ui/molecules/QuillEditor'
 import CardTitle from '@/ui/molecules/CardTitle'
 import MenuNavbar from '@/ui/molecules/MenuNavbar'
+import DialogConfirm from '../molecules/DialogConfirm'
 export {
   Article,
   FormRegister,
@@ -20,5 +21,6 @@ export {
   MenuItemIcon,
   QuillEditor,
   CardTitle,
-  MenuNavbar
+  MenuNavbar,
+  DialogConfirm
 }

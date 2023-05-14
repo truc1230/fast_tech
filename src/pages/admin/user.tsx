@@ -8,3 +8,4 @@ const user = (props: Props) => {
 }
 
 export default user
+user.requireAuth = true
